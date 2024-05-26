@@ -7,6 +7,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 import rs.ac.uns.acs.nais.GraphDatabaseService.enums.TourCategory;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Node
 @Getter
@@ -22,7 +23,7 @@ public class Tour {
 
     private String duration;
 
-    private LocalDateTime occurrenceDateTime;
+    private String occurrenceDateTime;
 
     private Integer organizerId;
 

@@ -7,6 +7,7 @@ import org.springframework.data.neo4j.core.schema.RelationshipProperties;
 import org.springframework.data.neo4j.core.schema.TargetNode;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @RelationshipProperties
 @Getter
@@ -23,19 +24,17 @@ public class Purchase {
 
     private String minorTicketNumber;
 
-    private LocalDateTime reservationDateTime;
 
     private String totalPrice;
 
     public Purchase() {
     }
 
-    public Purchase(Long id, Tour tour, String adultTicketNumber, String minorTicketNumber, LocalDateTime reservationDateTime, String totalPrice) {
+    public Purchase(Long id, Tour tour, String adultTicketNumber, String minorTicketNumber, String totalPrice) {
         this.id = id;
         this.tour = tour;
         this.adultTicketNumber = adultTicketNumber;
         this.minorTicketNumber = minorTicketNumber;
-        this.reservationDateTime = reservationDateTime;
         this.totalPrice = totalPrice;
     }
 
