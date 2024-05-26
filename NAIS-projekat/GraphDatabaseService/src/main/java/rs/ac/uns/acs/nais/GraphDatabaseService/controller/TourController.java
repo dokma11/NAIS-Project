@@ -1,31 +1,21 @@
 package rs.ac.uns.acs.nais.GraphDatabaseService.controller;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.MediaType;
-import rs.ac.uns.acs.nais.GraphDatabaseService.model.Product;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
-import rs.ac.uns.acs.nais.GraphDatabaseService.service.impl.ProductService;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-import rs.ac.uns.acs.nais.GraphDatabaseService.model.Customer;
+import rs.ac.uns.acs.nais.GraphDatabaseService.service.ITourService;
 import rs.ac.uns.acs.nais.GraphDatabaseService.service.impl.TourService;
 
 @RestController
 @RequestMapping("/tours.json")
 public class TourController {
 
-    private final TourService tourService;
+    private final ITourService tourService;
 
     public TourController(TourService tourService) {
         this.tourService = tourService;
