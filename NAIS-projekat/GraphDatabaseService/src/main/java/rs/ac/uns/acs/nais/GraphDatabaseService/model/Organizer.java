@@ -27,6 +27,6 @@ public class Organizer {
 
     private String lastName;
 
-    @Relationship(value = "PURCHASED", direction = Relationship.Direction.OUTGOING)
+    @Relationship(value = "MADE", direction = Relationship.Direction.OUTGOING)
     private List<Make> made = new ArrayList<>();
 }

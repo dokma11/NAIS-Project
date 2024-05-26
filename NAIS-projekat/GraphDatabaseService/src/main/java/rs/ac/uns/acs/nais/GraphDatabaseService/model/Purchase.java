@@ -24,7 +24,6 @@ public class Purchase {
 
     private String minorTicketNumber;
 
-
     private String totalPrice;
 
     public Purchase() {

@@ -31,7 +31,7 @@ public class TourService implements ITourService {
     public boolean delete(String id) {
         var tour = repository.findById(Long.parseLong(id));
         if(tour.isPresent()){
-            repository.save(tour.get());
+            repository.delete(tour.get());
             return true;
         }
         return false;

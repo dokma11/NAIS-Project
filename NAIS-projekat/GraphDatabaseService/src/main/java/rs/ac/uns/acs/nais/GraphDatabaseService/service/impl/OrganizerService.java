@@ -30,7 +30,7 @@ public class OrganizerService implements IOrganizerService {
     public boolean delete(String id) {
         var organizer = repository.findById(Long.parseLong(id));
         if(organizer.isPresent()){
-            repository.save(organizer.get());
+            repository.delete(organizer.get());
             return true;
         }
         return false;

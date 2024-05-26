@@ -81,3 +81,149 @@ SET p.adultTicketNumber = '2', p.minorTicketNumber = '2', p.totalPrice = '1200';
 MATCH (g:Guest {id: 9}), (t:Tour {id: 7})
 CREATE (g)-[p:PURCHASED]->(t)
 SET p.adultTicketNumber = '2', p.minorTicketNumber = '2', p.totalPrice = '1200';
+
+CREATE (:Organizer {id: 0, username: "organizer1", email: "organizer1@example.com", password: "pass1", firstName: "Ninica", lastName: "Smith"});
+CREATE (:Organizer {id: 1, username: "organizer2", email: "organizer2@example.com", password: "pass2", firstName: "Vukasin", lastName: "Johnson"});
+CREATE (:Organizer {id: 2, username: "organizer3", email: "organizer3@example.com", password: "pass3", firstName: "Ninoslav", lastName: "Brown"});
+CREATE (:Organizer {id: 3, username: "organizer4", email: "organizer4@example.com", password: "pass4", firstName: "Vukasinoslav", lastName: "Wilson"});
+CREATE (:Organizer {id: 4, username: "organizer5", email: "organizer5@example.com", password: "pass5", firstName: "Ninoslavcina", lastName: "Martinez"});
+CREATE (:Organizer {id: 5, username: "organizer6", email: "organizer6@example.com", password: "pass6", firstName: "Vukasinoslavina", lastName: "Thompson"});
+CREATE (:Organizer {id: 6, username: "organizer7", email: "organizer7@example.com", password: "pass7", firstName: "Grace", lastName: "Lee"});
+CREATE (:Organizer {id: 7, username: "organizer8", email: "organizer8@example.com", password: "pass8", firstName: "Henry", lastName: "Davis"});
+
+MATCH (g:Organizer {id: 0}), (t:Tour {id: 1})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 2}), (t:Tour {id: 1})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 2}), (t:Tour {id: 2})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 3}), (t:Tour {id: 2})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 3}), (t:Tour {id: 3})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 4}), (t:Tour {id: 3})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 4}), (t:Tour {id: 4})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 4}), (t:Tour {id: 1})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 5}), (t:Tour {id: 1})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 5}), (t:Tour {id: 2})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 6}), (t:Tour {id: 3})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 7}), (t:Tour {id: 4})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 8}), (t:Tour {id: 3})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 8}), (t:Tour {id: 6})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 9}), (t:Tour {id: 6})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Organizer {id: 9}), (t:Tour {id: 7})
+CREATE (g)-[p:MADE]->(t)
+SET p.editTime = '2023-06-07';
+
+CREATE (:Exhibition {id: 0, name: "Modern Art Exhibition", picture: "/images/modern_art.jpg", shortDescription: "A showcase of contemporary art pieces.", longDescription: "Explore the diverse and innovative works of modern artists from around the world.", theme: "CONTEMPORARY_ART", startDate: "2024-06-01T09:00:00", endDate: "2024-06-15T18:00:00", price: 20});
+CREATE (:Exhibition {id: 1, name: "Historical Artifacts Exhibition", picture: "/images/historical_artifacts.jpg", shortDescription: "An exhibition of artifacts from ancient civilizations.", longDescription: "Delve into the history and culture of ancient civilizations through a display of rare artifacts.", theme: "ANCIENT_HISTORY", startDate: "2024-07-01T09:00:00", endDate: "2024-07-20T18:00:00", price: 25});
+CREATE (:Exhibition {id: 2, name: "Science Innovations Exhibition", picture: "/images/science_innovations.jpg", shortDescription: "Discover the latest advancements in science and technology.", longDescription: "An exhibition showcasing the most recent breakthroughs in various scientific fields.", theme: "SCIENCE_AND_TECHNOLOGY", startDate: "2024-08-01T09:00:00", endDate: "2024-08-15T18:00:00", price: 15});
+CREATE (:Exhibition {id: 3, name: "Nature Photography Exhibition", picture: "/images/nature_photography.jpg", shortDescription: "A collection of stunning nature photographs.", longDescription: "Experience the beauty of nature through the lens of talented photographers.", theme: "PHOTOGRAPHY", startDate: "2024-09-01T09:00:00", endDate: "2024-09-10T18:00:00", price: 10});
+CREATE (:Exhibition {id: 4, name: "Astronomy Exhibition", picture: "/images/astronomy.jpg", shortDescription: "Explore the wonders of the universe.", longDescription: "An exhibition dedicated to the fascinating world of astronomy and space exploration.", theme: "SPACE_EXPLORATION", startDate: "2024-10-01T09:00:00", endDate: "2024-10-15T18:00:00", price: 30});
+CREATE (:Exhibition {id: 5, name: "Architecture and Design Exhibition", picture: "/images/architecture_design.jpg", shortDescription: "Innovative architectural designs on display.", longDescription: "Discover the latest trends and innovations in architecture and design.", theme: "FASHION_AND_DESIGN", startDate: "2024-11-01T09:00:00", endDate: "2024-11-20T18:00:00", price: 25});
+CREATE (:Exhibition {id: 6, name: "Culinary Arts Exhibition", picture: "/images/culinary_arts.jpg", shortDescription: "A celebration of culinary arts.", longDescription: "Explore the art of cooking and culinary creations from around the world.", theme: "WORLD_CULTURES", startDate: "2024-12-01T09:00:00", endDate: "2024-12-10T18:00:00", price: 20});
+CREATE (:Exhibition {id: 7, name: "Film and Media Exhibition", picture: "/images/film_media.jpg", shortDescription: "A look into the world of film and media.", longDescription: "An exhibition showcasing the evolution and impact of film and media on society.", theme: "FILM_AND_MEDIA", startDate: "2025-01-01T09:00:00", endDate: "2025-01-15T18:00:00", price: 30});
+
+MATCH (g:Tour {id: 0}), (t:Exhibition {id: 1})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 2}), (t:Exhibition {id: 1})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 2}), (t:Exhibition {id: 2})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 3}), (t:Exhibition {id: 2})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 3}), (t:Exhibition {id: 3})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 4}), (t:Exhibition {id: 3})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 4}), (t:Exhibition {id: 4})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 4}), (t:Exhibition {id: 1})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 5}), (t:Exhibition {id: 1})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 5}), (t:Exhibition {id: 2})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 6}), (t:Exhibition {id: 3})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 7}), (t:Exhibition {id: 4})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 8}), (t:Exhibition {id: 3})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 8}), (t:Exhibition {id: 6})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 9}), (t:Exhibition {id: 6})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';
+
+MATCH (g:Tour {id: 9}), (t:Exhibition {id: 7})
+CREATE (g)-[p:HAS]->(t)
+SET p.editTime = '2023-06-07';

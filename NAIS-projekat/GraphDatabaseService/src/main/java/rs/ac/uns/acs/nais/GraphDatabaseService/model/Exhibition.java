@@ -26,9 +26,9 @@ public class Exhibition {
 
     private ExhibitionTheme theme;
 
-    private LocalDateTime startDate;
+    private String startDate;
 
-    private LocalDateTime endDate; 
+    private String endDate;
 
     private Integer price; 
 

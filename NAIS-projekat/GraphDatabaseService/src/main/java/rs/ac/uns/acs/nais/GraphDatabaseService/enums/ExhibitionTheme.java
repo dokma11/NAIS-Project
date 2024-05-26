@@ -1,7 +1,6 @@
 package rs.ac.uns.acs.nais.GraphDatabaseService.enums;
 
 public enum ExhibitionTheme {
-
     ANCIENT_HISTORY,
     MEDIEVAL_HISTORY,
     MODERN_HISTORY,

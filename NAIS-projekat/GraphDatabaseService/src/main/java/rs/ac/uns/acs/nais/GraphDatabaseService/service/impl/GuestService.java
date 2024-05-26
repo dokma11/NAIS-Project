@@ -30,7 +30,7 @@ public class GuestService implements IGuestService {
     public boolean delete(String id) {
         var guest = repository.findById(Long.parseLong(id));
         if(guest.isPresent()){
-            repository.save(guest.get());
+            repository.delete(guest.get());
             return true;
         }
         return false;
