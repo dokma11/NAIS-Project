@@ -27,4 +27,16 @@ public class Purchase {
 
     private String totalPrice;
 
+    public Purchase() {
+    }
+
+    public Purchase(Long id, Tour tour, String adultTicketNumber, String minorTicketNumber, LocalDateTime reservationDateTime, String totalPrice) {
+        this.id = id;
+        this.tour = tour;
+        this.adultTicketNumber = adultTicketNumber;
+        this.minorTicketNumber = minorTicketNumber;
+        this.reservationDateTime = reservationDateTime;
+        this.totalPrice = totalPrice;
+    }
+
 }
