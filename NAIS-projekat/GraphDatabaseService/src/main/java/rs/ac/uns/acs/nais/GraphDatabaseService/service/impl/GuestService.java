@@ -28,7 +28,7 @@ public class GuestService implements IGuestService {
 
     @Override
     public boolean delete(String id) {
-        var guest = repository.findById(Integer.parseInt(id));
+        var guest = repository.findById(Long.parseLong(id));
         if(guest.isPresent()){
             repository.save(guest.get());
             return true;

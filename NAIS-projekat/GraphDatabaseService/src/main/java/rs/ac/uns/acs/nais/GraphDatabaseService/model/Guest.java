@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Node
 @Getter
@@ -11,7 +15,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 public class Guest {
 
     @Id
-    private Integer id;
+    private Long id;
 
     private String username;
 
@@ -22,5 +26,8 @@ public class Guest {
     private String firstName;
 
     private String lastName;
+
+    @Relationship(value = "PURCHASED", direction = Relationship.Direction.OUTGOING)
+    private List<Purchase> purchased = new ArrayList<>();
 
 }

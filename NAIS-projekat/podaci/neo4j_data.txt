@@ -1,63 +1,140 @@
-CREATE (:Customer {idOriginal: 1, email: "john.doe@example.com", isActive: true}),
-       (:Customer {idOriginal: 2, email: "jane.smith@example.com", isActive: true}),
-       (:Customer {idOriginal: 3, email: "alice.johnson@example.com", isActive: true}),
-       (:Customer {idOriginal: 4, email: "bob.williams@example.com", isActive: true}),
-       (:Customer {idOriginal: 5, email: "eve.brown@example.com", isActive: true}),
-       (:Customer {idOriginal: 6, email: "michael.davis@example.com", isActive: true}),
-       (:Customer {idOriginal: 7, email: "emily.miller@example.com", isActive: true}),
-       (:Customer {idOriginal: 8, email: "david.wilson@example.com", isActive: true}),
-       (:Customer {idOriginal: 9, email: "sarah.martinez@example.com", isActive: true}),
-       (:Customer {idOriginal: 10, email: "chris.anderson@example.com", isActive: true}),
-       (:Customer {idOriginal: 11, email: "olivia.taylor@example.com", isActive: true}),
-       (:Customer {idOriginal: 12, email: "william.garcia@example.com", isActive: true}),
-       (:Customer {idOriginal: 13, email: "sophia.rodriguez@example.com", isActive: true}),
-       (:Customer {idOriginal: 14, email: "james.lopez@example.com", isActive: true}),
-       (:Customer {idOriginal: 15, email: "emma.hernandez@example.com", isActive: true}),
-       (:Customer {idOriginal: 16, email: "matthew.gonzalez@example.com", isActive: true}),
-       (:Customer {idOriginal: 17, email: "isabella.perez@example.com", isActive: true}),
-       (:Customer {idOriginal: 18, email: "daniel.moore@example.com", isActive: true}),
-       (:Customer {idOriginal: 19, email: "ava.taylor@example.com", isActive: true}),
-       (:Customer {idOriginal: 20, email: "alexander.king@example.com", isActive: true}),
-       (:Customer {idOriginal: 21, email: "mihael@example.com", isActive: true})
+CREATE (:Tour {
+    id: 1,
+    name: 'City Exploration Tour',
+    description: 'Discover the hidden gems of the city with our guided tour.',
+    duration: '2 hours',
+    occurrenceDateTime: datetime('2024-06-01T10:00:00'),
+    organizerId: 101,
+    adultTicketPrice: '20',
+    minorTicketPrice: '10',
+    picturePath: '/images/city_exploration_tour.jpg',
+    capacity: '25',
+    category: 'CITY'
+})
 
-CREATE (:Product {idOriginal: "1", name: "Apple Juice", isAvailable: true}),
-       (:Product {idOriginal: "2", name: "Banana Soda", isAvailable: true}),
-       (:Product {idOriginal: "3", name: "Orange Snack", isAvailable: true}),
-       (:Product {idOriginal: "4", name: "Grapes Cookies", isAvailable: true}),
-       (:Product {idOriginal: "5", name: "Pineapple Jam", isAvailable: true}),
-       (:Product {idOriginal: "6", name: "Strawberry Chips", isAvailable: true}),
-       (:Product {idOriginal: "7", name: "Watermelon Cake", isAvailable: true}),
-       (:Product {idOriginal: "8", name: "Mango Yogurt", isAvailable: true}),
-       (:Product {idOriginal: "9", name: "Peach Smoothie", isAvailable: true}),
-       (:Product {idOriginal: "10", name: "Pear Tea", isAvailable: true}),
-       (:Product {idOriginal: "11", name: "Apple Tea", isAvailable: true}),
-       (:Product {idOriginal: "12", name: "Banana Smoothie", isAvailable: true}),
-       (:Product {idOriginal: "13", name: "Orange Yogurt", isAvailable: true}),
-       (:Product {idOriginal: "14", name: "Grapes Cake", isAvailable: true}),
-       (:Product {idOriginal: "15", name: "Pineapple Chips", isAvailable: true}),
-       (:Product {idOriginal: "16", name: "Strawberry Jam", isAvailable: true}),
-       (:Product {idOriginal: "17", name: "Watermelon Snack", isAvailable: true}),
-       (:Product {idOriginal: "18", name: "Mango Soda", isAvailable: true}),
-       (:Product {idOriginal: "19", name: "Peach Juice", isAvailable: true}),
-       (:Product {idOriginal: "20", name: "Pear Cookies", isAvailable: true})
+CREATE (:Tour {
+    id: 2,
+    name: 'Mountain Hiking Adventure',
+    description: 'Embark on an exciting journey through the breathtaking mountains.',
+    duration: '6 hours',
+    occurrenceDateTime: datetime('2024-06-15T08:00:00'),
+    organizerId: 102,
+    adultTicketPrice: '30',
+    minorTicketPrice: '20',
+    picturePath: '/images/mountain_hiking_adventure.jpg',
+    capacity: '15',
+    category: 'ADVENTURE'
+})
 
-MATCH (c:Customer), (p:Product)
-WHERE c.idOriginal IN [1, 2, 3, 4, 5] AND p.idOriginal IN ["1", "2", "3", "4", "5"]
-CREATE (c)-[purchase:PURCHASED]->(p)
-SET purchase.numberOfPurchasedItems = toInteger(rand() * 10)
+CREATE (:Tour {
+    id: 3,
+    name: 'Wine Tasting Tour',
+    description: 'Experience the finest wines with our expert sommeliers.',
+    duration: '3 hours',
+    occurrenceDateTime: datetime('2024-07-05T17:00:00'),
+    organizerId: 103,
+    adultTicketPrice: '50',
+    minorTicketPrice: '10',
+    picturePath: '/images/wine_tasting_tour.jpg',
+    capacity: '20',
+    category: 'CULINARY'
+})
 
-MATCH (c:Customer), (p:Product)
-WHERE c.idOriginal = 21 AND p.idOriginal IN ["1", "2", "3"]
-CREATE (c)-[purchase:PURCHASED]->(p)
-SET purchase.numberOfPurchasedItems = toInteger(rand() * 10)
+CREATE (:Tour {
+    id: 4,
+    name: 'Historical Landmarks Tour',
+    description: 'Journey through time as we explore the historical landmarks of the city.',
+    duration: '4 hours',
+    occurrenceDateTime: datetime('2024-07-20T13:00:00'),
+    organizerId: 104,
+    adultTicketPrice: '25',
+    minorTicketPrice: '15',
+    picturePath: '/images/historical_landmarks_tour.jpg',
+    capacity: '30',
+    category: 'CULTURAL'
+})
 
-MATCH (c:Customer), (p:Product)
-WHERE c.idOriginal IN [6, 7, 8, 9, 10] AND p.idOriginal IN ["6", "7", "8", "9", "10"]
-CREATE (c)-[review:REVIEWED]->(p)
-SET review.rating = toInteger(rand() * 5) + 1
+CREATE (:Tour {
+    id: 5,
+    name: 'Beach Relaxation Retreat',
+    description: 'Unwind and relax on the pristine beaches with our exclusive retreat.',
+    duration: '1 day',
+    occurrenceDateTime: datetime('2024-08-10T09:00:00'),
+    organizerId: 105,
+    adultTicketPrice: '40',
+    minorTicketPrice: '20',
+    picturePath: '/images/beach_relaxation_retreat.jpg',
+    capacity: '40',
+    category: 'RELAXATION'
+})
 
-MATCH (c:Customer), (p:Product)
-WHERE c.idOriginal = 21  AND p.idOriginal IN ["9", "10"]
-CREATE (c)-[review:REVIEWED]->(p)
-SET review.rating = toInteger(rand() * 5) + 1
+CREATE (:Tour {
+    id: 6,
+    name: 'Cultural Street Food Tour',
+    description: 'Explore the rich culinary heritage of the city streets with our food tour.',
+    duration: '3 hours',
+    occurrenceDateTime: datetime('2024-09-02T18:00:00'),
+    organizerId: 106,
+    adultTicketPrice: '35',
+    minorTicketPrice: '25',
+    picturePath: '/images/cultural_street_food_tour.jpg',
+    capacity: '25',
+    category: 'CULINARY'
+})
+
+CREATE (:Tour {
+    id: 7,
+    name: 'Sunset Cruise Experience',
+    description: 'Witness the breathtaking sunset views from the comfort of our cruise ship.',
+    duration: '2 hours',
+    occurrenceDateTime: datetime('2024-09-18T17:30:00'),
+    organizerId: 107,
+    adultTicketPrice: '60',
+    minorTicketPrice: '40',
+    picturePath: '/images/sunset_cruise_experience.jpg',
+    capacity: '50',
+    category: 'ROMANTIC'
+})
+
+CREATE (:Tour {
+    id: 8,
+    name: 'Wildlife Safari Adventure',
+    description: 'Embark on an unforgettable safari journey through the wilderness.',
+    duration: '1 day',
+    occurrenceDateTime: datetime('2024-10-05T06:00:00'),
+    organizerId: 108,
+    adultTicketPrice: '70',
+    minorTicketPrice: '50',
+    picturePath: '/images/wildlife_safari_adventure.jpg',
+    capacity: '10',
+    category: 'ADVENTURE'
+})
+
+CREATE (:Tour {
+    id: 9,
+    name: 'Art and Architecture Tour',
+    description: 'Discover the artistic and architectural marvels of the city.',
+    duration: '3 hours',
+    occurrenceDateTime: datetime('2024-10-20T11:00:00'),
+    organizerId: 109,
+    adultTicketPrice: '40',
+    minorTicketPrice: '30',
+    picturePath: '/images/art_and_architecture_tour.jpg',
+    capacity: '20',
+    category: 'CULTURAL'
+})
+
+CREATE (:Tour {
+    id: 10,
+    name: 'Adventure Park Excursion',
+    description: 'Experience adrenaline-pumping adventures in our thrilling adventure park.',
+    duration: '5 hours',
+    occurrenceDateTime: datetime('2024-11-10T10:00:00'),
+    organizerId: 110,
+    adultTicketPrice: '50',
+    minorTicketPrice: '40',
+    picturePath: '/images/adventure_park_excursion.jpg',
+    capacity: '15',
+    category: 'ADVENTURE'
+})
 

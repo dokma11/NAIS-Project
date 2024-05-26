@@ -29,7 +29,7 @@ public class TourService implements ITourService {
 
     @Override
     public boolean delete(String id) {
-        var tour = repository.findById(Integer.parseInt(id));
+        var tour = repository.findById(Long.parseLong(id));
         if(tour.isPresent()){
             repository.save(tour.get());
             return true;
