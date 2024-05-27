@@ -53,4 +53,8 @@ public class TourService implements ITourService {
         return tourRepository.findByPriceRange(minPrice, maxPrice);
     }
 
+    public List<Tour> findByMostFrequentCategory(){
+        return tourRepository.findByMostFrequentCategory();
+    }
+
 }

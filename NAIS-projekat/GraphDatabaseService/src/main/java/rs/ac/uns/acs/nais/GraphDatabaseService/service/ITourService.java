@@ -9,4 +9,5 @@ public interface ITourService {
     boolean delete(String id);
     boolean update(Tour tour);
     List<Tour> findByPriceRange(String minPrice, String maxPrice);
+    List<Tour> findByMostFrequentCategory();
 }

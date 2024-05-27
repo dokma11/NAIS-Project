@@ -10,12 +10,23 @@ import java.util.List;
 @Repository
 public interface TourRepository extends Neo4jRepository<Tour, Long> {
 
+    // Za generisanje pdfa, prosta sekcija pronaci sve ture u cenovnom rangu
     @Query("MATCH (t:Tour)" +
             "WHERE t.adultTicketPrice < $maxPrice AND t.adultTicketPrice > $minPrice" +
             "WHERE t.minorTicketPrice < $maxPrice AND t.minorTicketPrice > $minPrice" +
             "RETURN t"
     )
     List<Tour> findByPriceRange(String minPrice, String maxPrice);
+
+    // Za generisanje pdfa, prosta sekcija pronaci sve ture koje pripadaju najucestalijoj kategoriji
+    @Query("MATCH (t:Tour)" +
+            "WITH tour.category AS category, count(tour) AS categoryCount" +
+            "ORDER BY categoryCount DESC" +
+            "LIMIT 1" +
+            "MATCH (mostFrequentTourList:Tour {category: category})" +
+            "RETURN collect(mostFrequentTourList) AS tours"
+    )
+    List<Tour> findByMostFrequentCategory();
 
     @Query("MATCH (g:Guest {id: $guestId})-[:PURCHASED]->(purchased:Tour)" +
             "MATCH (similar:Tour)" +
