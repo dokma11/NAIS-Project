@@ -38,11 +38,18 @@ public class OrganizerService implements IOrganizerService {
 
     @Override
     public boolean update(Organizer organizerForUpdate) {
-        var tour = repository.findById(organizerForUpdate.getId());
-        if(tour.isPresent()){
-            repository.save(tour.get());
+        var organizer = repository.findById(organizerForUpdate.getId());
+        if(organizer.isPresent()){
+            repository.save(organizer.get());
             return true;
         }
         return false;
     }
+
+    @Override
+    public Organizer findById(String id) {
+        var organizer = repository.findById(Long.valueOf(id));
+        return organizer.orElse(null);
+    }
+
 }
