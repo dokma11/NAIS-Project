@@ -8,7 +8,9 @@ public interface ITourService {
     Tour create(Tour tour);
     boolean delete(String id);
     boolean update(Tour tour);
-//    List<Product> recommendProductsByPurchaseHistory(Long customerId);
-//    List<Product> recommendProductsByReviews(Long customerId);
-//    public byte[] export(List<Product> products) throws IOException;
+    List<Tour> findByPriceRange(String minPrice, String maxPrice);
+    List<Tour> findByMostFrequentCategory();
+    List<Tour> findOtherUsersBoughtAndCategory(Long guestId);
+    List<Tour> findOtherUsersBought(Long guestId);
+    List<Tour> findSimilarToursViaPurchaseHistory(Long guestId);
 }
