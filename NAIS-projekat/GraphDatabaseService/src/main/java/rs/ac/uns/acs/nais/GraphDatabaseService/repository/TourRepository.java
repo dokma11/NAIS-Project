@@ -44,6 +44,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findOtherUsersBought(Long guestId);
 
+    // Koristice se za slozenu sekciju
     // Ovaj upit pronalazi ture koje su kupili drugi korisnici koji su kupili iste ture kao prijavljeni korisnik i filtrira ih na osnovu kategorije
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(commonTour:Tour)<-[:PURCHASED]-(otherGuest:Guest)" +
             "MATCH (otherGuest)-[:PURCHASED]->(recommendedTour:Tour)" +

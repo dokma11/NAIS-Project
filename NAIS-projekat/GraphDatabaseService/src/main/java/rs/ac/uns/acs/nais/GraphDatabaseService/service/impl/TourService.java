@@ -57,4 +57,16 @@ public class TourService implements ITourService {
         return tourRepository.findByMostFrequentCategory();
     }
 
+    public List<Tour> findOtherUsersBoughtAndCategory(Long guestId){
+        return tourRepository.findOtherUsersBoughtAndCategory(guestId);
+    }
+
+    public List<Tour> findOtherUsersBought(Long guestId){
+        return tourRepository.findOtherUsersBought(guestId);
+    }
+
+    public List<Tour> findSimilarToursViaPurchaseHistory(Long guestId){
+        return tourRepository.findSimilarToursViaPurchaseHistory(guestId);
+    }
+
 }

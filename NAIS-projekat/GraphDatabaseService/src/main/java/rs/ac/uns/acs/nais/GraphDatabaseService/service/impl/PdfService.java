@@ -66,4 +66,22 @@ public class PdfService implements IPdfService {
     private void addContentToDocumentForToursWithMostFrequentCategory(Document document, Integer requestedById, List<Tour> tours) throws DocumentException {
         // TODO
     }
+
+    @Override
+    public ByteArrayInputStream generateToursByOthersPurchasesAndCategoryPdf(Integer requestedById) throws DocumentException, IOException{
+        List<Tour> tours = tourService.findOtherUsersBoughtAndCategory(requestedById.longValue()); // treba proveriti
+        Document document = new Document(PageSize.A4);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        //PdfWriter.getInstance(document, out); // neki error nmp
+
+        document.open();
+        addContentToDocumentForToursWithMostFrequentCategory(document, requestedById, tours);
+        document.close();
+
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    private void addContentToDocumentForToursByOthersPurchasesAndCategory(Document document, Integer requestedById, List<Tour> tours) throws DocumentException {
+        // TODO
+    }
 }

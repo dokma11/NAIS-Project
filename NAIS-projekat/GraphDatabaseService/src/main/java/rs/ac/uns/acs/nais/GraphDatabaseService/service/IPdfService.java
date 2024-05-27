@@ -8,5 +8,5 @@ import java.io.IOException;
 public interface IPdfService {
     ByteArrayInputStream generateToursInPriceRangePdf(Integer requestedById) throws DocumentException, IOException;
     ByteArrayInputStream generateToursByMostFrequentCategoryPdf(Integer requestedById) throws DocumentException, IOException;
-
+    ByteArrayInputStream generateToursByOthersPurchasesAndCategoryPdf(Integer requestedById) throws DocumentException, IOException;
 }
