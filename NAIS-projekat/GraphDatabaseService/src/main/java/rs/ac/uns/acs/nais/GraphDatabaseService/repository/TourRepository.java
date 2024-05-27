@@ -10,6 +10,13 @@ import java.util.List;
 @Repository
 public interface TourRepository extends Neo4jRepository<Tour, Long> {
 
+    @Query("MATCH (t:Tour)" +
+            "WHERE t.adultTicketPrice < $maxPrice AND t.adultTicketPrice > $minPrice" +
+            "WHERE t.minorTicketPrice < $maxPrice AND t.minorTicketPrice > $minPrice" +
+            "RETURN t"
+    )
+    List<Tour> findByPriceRange(String minPrice, String maxPrice);
+
     @Query("MATCH (g:Guest {id: $guestId})-[:PURCHASED]->(purchased:Tour)" +
             "MATCH (similar:Tour)" +
             "WHERE similar.category = purchased.category AND NOT (g)-[:PURCHASED]->(similar)" +
@@ -95,7 +102,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
     List<Tour> findByOrganizer(Long guestId);
 
     // Ovaj upit pronalazi ture koje je kreirao isti organizator a da su iste kategorije
-    @Query("MATCH (loggedInGuest:Guest {id: $loggedInGuestId})-[:PURCHASED]->(purchasedTour:Tour)<-[:MADE]-(organizer:Organizer)" +
+    @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(purchasedTour:Tour)<-[:MADE]-(organizer:Organizer)" +
             "MATCH (organizer)-[:MADE]->(recommendedTour:Tour)" +
             "WHERE NOT (loggedInGuest)-[:PURCHASED]->(recommendedTour)" +
             "AND purchasedTour.category = recommendedTour.category" +
