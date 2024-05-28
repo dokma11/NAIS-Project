@@ -56,7 +56,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findOtherUsersBoughtAndCategory(Long guestId);
 
-    // Ovaj mi je malo njesra
+    // Ovaj mi je malo bezveze
     // Ovaj upit pronalazi popularne ture koje su u skorije vreme
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(commonTour:Tour)<-[:PURCHASED]-(otherGuest:Guest)" +
             "MATCH (otherGuest)-[:PURCHASED]->(recommendedTour:Tour)" +
@@ -80,7 +80,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
     List<Tour> findBySimilarExhibitions(Long guestId);
 
     // Za egzibicije ovaj mi se vise svidja od gornjeg
-    // Ovaj upit pronalazi ture koje imaju egzibicije koje je korisnik posetio na drugim svojim kupljenim turama
+    // Ovaj upit pronalazi ture koje imaju egzibicije koje je korisnik posetio na drugim svojim kupljenim turama TEMA
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(purchasedTour:Tour)-[:HAS]->(exhibition:Exhibition)" +
             "MATCH (similarExhibition:Exhibition {theme: exhibition.theme})" +
             "MATCH (recommendedTour:Tour)-[:HAS]->(similarExhibition)" +
