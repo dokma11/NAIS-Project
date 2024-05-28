@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import org.example.museumservice.enums.TourCategory;
 import java.util.ArrayList;
 import java.util.List;
 

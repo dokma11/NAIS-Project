@@ -2,6 +2,7 @@ package org.example.museumservice.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.museumservice.enums.TourCategory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
