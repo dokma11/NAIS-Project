@@ -32,6 +32,8 @@ public class TourCreateDTO {
 
     private Integer guideId;
 
+    private Integer organizerId;
+
     private String capacity;
 
     private String picturePath;

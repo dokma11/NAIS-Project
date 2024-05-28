@@ -1,6 +1,8 @@
 package org.example.museumservice.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.museumservice.enums.Role;
 
 @Data

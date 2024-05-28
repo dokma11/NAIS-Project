@@ -33,6 +33,8 @@ public class TourUpdateDTO {
 
     private Integer guideId;
 
+    private Integer organizerId;
+
     private String capacity;
 
     private String picturePath;

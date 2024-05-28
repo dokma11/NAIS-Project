@@ -1,7 +1,11 @@
 package org.example.museumservice.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.museumservice.enums.ExhibitionTheme;
 
+@Getter
+@Setter
 public class ExhibitionResponseDTO {
     private Integer id;
     private String name;

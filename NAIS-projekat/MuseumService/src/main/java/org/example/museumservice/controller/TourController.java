@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.museumservice.dto.TourCreateDTO;
 import org.example.museumservice.dto.TourResponseDTO;
 import org.example.museumservice.dto.TourUpdateDTO;
+import org.example.museumservice.model.Exhibition;
 import org.example.museumservice.model.Tour;
+import org.example.museumservice.service.IExhibitionService;
+import org.example.museumservice.service.IOrganizerService;
 import org.example.museumservice.service.ITourService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,8 @@ import java.util.stream.Collectors;
 public class TourController {
 
     private final ITourService tourService;
+    private final IExhibitionService exhibitionService;
+    private final IOrganizerService organizerService;
 
     private final ModelMapper modelMapper;
 
@@ -36,8 +41,8 @@ public class TourController {
                 .collect(Collectors.toList());
         tour.setExhibitions(fetchedExhibitions);
 
-        var id = jwtService.getLoggedInUserId();
-        tour.setOrganizer(organizerService.findById(id));
+        var organizer = organizerService.findById(tourCreateDTO.getOrganizerId());
+        tour.setOrganizer(organizer);
 
         tour.setDuration(String.valueOf(exhibitionDTOs.size() * 45 + (exhibitionDTOs.size() - 1) * 5));
 
@@ -68,8 +73,8 @@ public class TourController {
                 .collect(Collectors.toList());
         tour.setExhibitions(fetchedExhibitions);
 
-//        var id = jwtService.getLoggedInUserId();
-//        tour.setOrganizer(organizerService.findById(id));
+        var organizer = organizerService.findById(tourUpdateDTO.getOrganizerId());
+        tour.setOrganizer(organizer);
 
         tourService.update(tour);
 
@@ -88,4 +93,5 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 }

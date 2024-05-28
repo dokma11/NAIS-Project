@@ -46,9 +46,9 @@ public class Tour {
     @Column(nullable = false)
     private String minorTicketPrice;
 
-//    @ManyToOne
-//    @JoinColumn(name = "organizer_id")
-//    private Organizer organizer;
+    @ManyToOne
+    @JoinColumn(name = "organizer_id")
+    private Organizer organizer;
 
     @NotEmpty
     @Column(nullable = false)
