@@ -17,3 +17,30 @@ INSERT INTO guest(id, biography) VALUES
 
 INSERT INTO organizer(id, biography) VALUES
     (6, 'I love organizing stuff.');
+
+INSERT INTO exhibition
+(name, picture, short_description, long_description, theme, start_date, end_date, price, organizer_id)
+VALUES
+    ('Ancient Civilizations Unveiled',
+     'https://cdn.pixabay.com/photo/2024/03/27/01/21/ai-generated-8657978_640.png',
+     'Discover the secrets of ancient civilizations',
+     'Unearth the legacies of ancient societies through immersive exhibits and authentic artifacts that tell a story of innovation and discovery.',
+     'ANCIENT_HISTORY', '2024-04-01', '2024-04-30', 10, 6);
+
+INSERT INTO exhibition
+(name, picture, short_description, long_description, theme, start_date, end_date, price, organizer_id)
+VALUES
+    ('Medieval Treasures',
+     'https://cdn.pixabay.com/photo/2024/04/02/02/24/ai-generated-8669925_640.png',
+     'Explore the medieval era',
+     'Delve into the Middle Ages with treasures that reveal the daily life, art, and the grandeur of a time cloaked in both darkness and enlightenment.',
+     'MEDIEVAL_HISTORY', '2024-05-15', '2024-06-15', 12, 6);
+
+INSERT INTO exhibition
+(name, picture, short_description, long_description, theme, start_date, end_date, price, organizer_id)
+VALUES
+    ('Military History: Triumphs and Tragedies',
+     'https://cdn.pixabay.com/photo/2020/04/19/17/44/war-5064697_640.jpg',
+     'Explore the triumphs and tragedies of military history',
+     'Explore pivotal moments of military history, showcasing the tactics, artifacts, and personal stories that echo through time.',
+     'MILITARY_HISTORY', '2024-09-01', '2024-09-30', 12, 6);
