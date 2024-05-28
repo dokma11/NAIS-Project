@@ -10,6 +10,8 @@ import org.example.museumservice.enums.TourCategory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.example.museumservice.enums.TourCategory;
+
 @Getter
 @Setter
 public class TourCreateDTO {
@@ -18,7 +20,7 @@ public class TourCreateDTO {
 
     private String description;
 
-    //private List<ExhibitionResponseDTO> exhibitions = new ArrayList<>();
+    private List<ExhibitionResponseDTO> exhibitions = new ArrayList<>();
 
     private String duration;
 
