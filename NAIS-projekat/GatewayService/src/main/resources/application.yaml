@@ -20,3 +20,7 @@ spring:
           uri: http://graph-database-service
           predicates:
             - Path=/graph-database-service/**
+        - id: museum-service
+          uri: http://museum-service
+          predicates:
+            - Path=/museum-service/**
