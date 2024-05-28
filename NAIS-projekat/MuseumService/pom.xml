@@ -49,11 +49,10 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- PostgreSQL -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <version>42.3.1</version>
         </dependency>
 
         <dependency>
