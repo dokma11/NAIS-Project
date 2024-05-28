@@ -35,21 +35,19 @@ public class Exhibition {
     @Enumerated(EnumType.STRING)
     private ExhibitionTheme theme;
 
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate; // Nullable, null means it's a permanent exhibition
+    private Date endDate;
 
     @PositiveOrZero
     @Column(nullable = false)
-    private Integer price; // The price in whole euros
+    private Integer price;
 
     @ManyToOne
     @JoinColumn(name = "organizer_id")
     private Organizer organizer;
-
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinTable(name = "tours_exhibitions", joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
