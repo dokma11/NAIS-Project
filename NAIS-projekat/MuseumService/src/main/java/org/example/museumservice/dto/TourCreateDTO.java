@@ -30,8 +30,6 @@ public class TourCreateDTO {
 
     private String minorTicketPrice;
 
-    private Integer guideId;
-
     private Integer organizerId;
 
     private String capacity;

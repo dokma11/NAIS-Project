@@ -30,8 +30,6 @@ public class TourResponseDTO {
 
     private String minorTicketPrice;
 
-    private Integer guideId;
-
     private String capacity;
 
     private String picturePath;
