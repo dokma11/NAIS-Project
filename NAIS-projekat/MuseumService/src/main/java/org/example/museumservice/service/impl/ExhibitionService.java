@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import org.example.museumservice.core.service.impl.CRUDService;
 import org.example.museumservice.model.Exhibition;
 import org.example.museumservice.repository.ExhibitionRepository;
 
