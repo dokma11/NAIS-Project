@@ -1,5 +1,6 @@
 package org.example.museumservice.model;
 
+import org.example.museumservice.enums.TourCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -45,10 +46,6 @@ public class Tour {
     private String minorTicketPrice;
 
 //    @ManyToOne
-//    @JoinColumn(name = "guide_id")
-//    private Curator guide;
-//
-//    @ManyToOne
 //    @JoinColumn(name = "organizer_id")
 //    private Organizer organizer;
 
@@ -59,5 +56,9 @@ public class Tour {
     @NotEmpty
     @Column(nullable = false)
     private String capacity;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "varchar(20)")
+    private TourCategory category;
 
 }
