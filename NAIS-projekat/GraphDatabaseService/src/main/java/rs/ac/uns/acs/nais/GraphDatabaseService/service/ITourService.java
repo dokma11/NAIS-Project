@@ -13,4 +13,11 @@ public interface ITourService {
     List<Tour> findOtherUsersBoughtAndCategory(Long guestId);
     List<Tour> findOtherUsersBought(Long guestId);
     List<Tour> findSimilarToursViaPurchaseHistory(Long guestId);
+    List<Tour> findPopularInNearFuture(Long guestId);
+    List<Tour> findBySimilarExhibitions(Long guestId);
+    List<Tour> findBySimilarExhibitionThemes(Long guestId);
+    List<Tour> findBySimilarExhibitionThemesAndSimilarCategories(Long guestId);
+    List<Tour> findByOrganizer(Long guestId);
+    List<Tour> findByOrganizerAndSimilarCategory(Long guestId);
+
 }

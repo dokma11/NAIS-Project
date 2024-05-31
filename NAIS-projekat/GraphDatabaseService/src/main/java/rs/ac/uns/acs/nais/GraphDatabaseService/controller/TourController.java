@@ -49,33 +49,57 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-//    @GetMapping("recommendByPurchase")
-//    public ResponseEntity<List<Product>> recommendProductsByPurchaseHistory(@RequestParam("customerId") Long customerId){
-//
-//        return new ResponseEntity<>(productService.recommendProductsByPurchaseHistory(customerId),HttpStatus.OK);
-//    }
-//    @GetMapping("recommendByReview")
-//    public ResponseEntity<List<Product>> recommendProductsByReviews(@RequestParam("customerId") Long customerId){
-//
-//        return new ResponseEntity<>(productService.recommendProductsByReviews(customerId),HttpStatus.OK);
-//    }
-//
-//    @GetMapping(value = "/export-pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-//    public ResponseEntity<byte[]> exportPdf() {
-//        List<Product> products = productService.findAllProducts();
-//        try {
-//            byte[] pdfContents = productService.export(products);
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.APPLICATION_PDF);
-//            headers.setContentDispositionFormData("attachment", "products.pdf");
-//
-//            return ResponseEntity.ok()
-//                    .headers(headers)
-//                    .body(pdfContents);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//        }
-//    }
+    @GetMapping
+    public ResponseEntity<?> findOtherUsersBought(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findOtherUsersBought(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findSimilarToursViaPurchaseHistory(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findSimilarToursViaPurchaseHistory(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findPopularInNearFuture(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findPopularInNearFuture(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<?> findBySimilarExhibitions(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findBySimilarExhibitions(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<?> findBySimilarExhibitionThemes(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findBySimilarExhibitionThemes(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<?> findBySimilarExhibitionThemesAndSimilarCategories(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findBySimilarExhibitionThemesAndSimilarCategories(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<?> findByOrganizer(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findByOrganizer(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findByOrganizerAndSimilarCategory(@RequestParam("id") Long id) {
+        List<Tour> tours = tourService.findByOrganizerAndSimilarCategory(id);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
 }
 
