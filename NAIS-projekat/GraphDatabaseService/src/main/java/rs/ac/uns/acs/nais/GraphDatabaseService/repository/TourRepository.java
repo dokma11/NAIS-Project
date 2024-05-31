@@ -132,4 +132,8 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "SET h.editTime = '$editTime'")
     void addExhibition(Long tourId, Long exhibitionId, String editTime);
 
+    @Query("MATCH (t:Tour {id: $tourId})-[h:HAS]->(e:Exhibition {id: $exhibitionId}) " +
+            "DELETE h")
+    boolean removeExhibition(Long tourId, Long exhibitionId);
+
 }

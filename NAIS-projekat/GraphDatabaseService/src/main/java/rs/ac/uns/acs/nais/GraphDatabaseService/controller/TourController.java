@@ -103,5 +103,13 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/removeExhibition")
+    public ResponseEntity<?> removeExhibition(@RequestParam("tourId") Long tourId, @RequestParam("exhibitionId") Long exhibitionId){
+        if(tourService.removeExhibition(tourId, exhibitionId)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }
 

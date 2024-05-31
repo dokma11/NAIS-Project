@@ -102,4 +102,8 @@ public class TourService implements ITourService {
         tourRepository.addExhibition(tourId, exhibitionId, date);
     }
 
+    public boolean removeExhibition(Long tourId, Long exhibitionId){
+        return tourRepository.removeExhibition(tourId, exhibitionId);
+    }
+
 }
