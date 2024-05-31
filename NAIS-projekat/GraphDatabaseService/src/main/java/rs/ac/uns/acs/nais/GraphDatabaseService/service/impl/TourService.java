@@ -8,6 +8,7 @@ import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
 import rs.ac.uns.acs.nais.GraphDatabaseService.repository.TourRepository;
 import rs.ac.uns.acs.nais.GraphDatabaseService.service.ITourService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -95,4 +96,10 @@ public class TourService implements ITourService {
     public List<Tour> findByOrganizerAndSimilarCategory(Long guestId){
         return tourRepository.findByOrganizerAndSimilarCategory(guestId);
     }
+
+    public void addExhibition(Long tourId, Long exhibitionId){
+        String date = LocalDateTime.now().toString();
+        tourRepository.addExhibition(tourId, exhibitionId, date);
+    }
+
 }

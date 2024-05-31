@@ -19,5 +19,5 @@ public interface ITourService {
     List<Tour> findBySimilarExhibitionThemesAndSimilarCategories(Long guestId);
     List<Tour> findByOrganizer(Long guestId);
     List<Tour> findByOrganizerAndSimilarCategory(Long guestId);
-
+    void addExhibition(Long tourId, Long exhibitionId);
 }

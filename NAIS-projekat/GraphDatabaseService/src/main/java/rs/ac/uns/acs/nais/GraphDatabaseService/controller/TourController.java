@@ -61,12 +61,11 @@ public class TourController {
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
-    @GetMapping("/findPopularInNearFuture")
+    @GetMapping("/findPopularInNearFuture")     // MORAM PROMENITI
     public ResponseEntity<?> findPopularInNearFuture(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findPopularInNearFuture(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
-
 
     @GetMapping("/findBySimilarExhibitions")
     public ResponseEntity<?> findBySimilarExhibitions(@RequestParam("id") Long id) {
@@ -74,20 +73,17 @@ public class TourController {
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
-
     @GetMapping("/findBySimilarExhibitionThemes")
     public ResponseEntity<?> findBySimilarExhibitionThemes(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitionThemes(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
-
     @GetMapping("/findBySimilarExhibitionThemesAndSimilarCategories")
     public ResponseEntity<?> findBySimilarExhibitionThemesAndSimilarCategories(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitionThemesAndSimilarCategories(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
-
 
     @GetMapping("/findByOrganizer")
     public ResponseEntity<?> findByOrganizer(@RequestParam("id") Long id) {
@@ -99,6 +95,12 @@ public class TourController {
     public ResponseEntity<?> findByOrganizerAndSimilarCategory(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findByOrganizerAndSimilarCategory(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+    @PostMapping("/addExhibition")
+    public ResponseEntity<?> addExhibition(@RequestParam("tourId") Long tourId, @RequestParam("exhibitionId") Long exhibitionId){
+        tourService.addExhibition(tourId, exhibitionId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 }
