@@ -133,6 +133,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
     void addExhibition(Long tourId, Long exhibitionId, String editTime);
 
 
+
     @Query("MATCH (o:Organizer {id: $organizerId}), (t:Tour {id: $tourId}) " +
             "CREATE (o)-[m:MADE]->(t) " +
             "SET h.editTime = '$editTime'")
@@ -143,5 +144,14 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
            "CREATE (g)-[p:PURCHASED]->(t) " +
            "SET p.adultTicketNumber = '$adultTicketNumber', p.minorTicketNumber = '$minorTicketNumber', p.totalPrice = '$totalPrice'")
     void purchaseTour(Long tourId, Long guestId, String adultTicketNumber, String minorTicketNumber, String totalPrice);
+
+    @Query("MATCH (t:Tour {id: $tourId})-[h:HAS]->(e:Exhibition {id: $exhibitionId}) " +
+            "DELETE h")
+    boolean removeExhibition(Long tourId, Long exhibitionId);
+
+    @Query("MATCH (t:Tour {id: $tourId})-[r]->(m) " +
+            "RETURN m ")
+    List<Exhibition> findExhibitionsByTourId(Long tourId);
+
 
 }

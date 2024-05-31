@@ -1,6 +1,8 @@
 package rs.ac.uns.acs.nais.GraphDatabaseService.service;
 
 import java.util.List;
+
+import rs.ac.uns.acs.nais.GraphDatabaseService.model.Exhibition;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
 
 public interface ITourService {
@@ -22,5 +24,7 @@ public interface ITourService {
     void addExhibition(Long tourId, Long exhibitionId);
     void makesTour(Long tourId, Long organizerId);
     void purchaseTour(Long tourId, Long guestId, String adultTicketNumber, String minorTicketNumber, String totalPrice);
+    boolean removeExhibition(Long tourId, Long exhibitionId);
+    List<Exhibition> findExhibitionsByTourId(Long tourId);
 
 }

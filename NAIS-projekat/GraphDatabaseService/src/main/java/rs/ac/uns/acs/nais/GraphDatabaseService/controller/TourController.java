@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import rs.ac.uns.acs.nais.GraphDatabaseService.model.Exhibition;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
 
 import java.util.List;
@@ -113,6 +114,20 @@ public class TourController {
     public ResponseEntity<?> purchaseTour(@RequestParam("tourId") Long tourId, @RequestParam("guestId") Long guestId, @RequestParam("adultTicketNumber") String adultTicketNumber, @RequestParam("minorTicketNumber") String minorTicketNumber, @RequestParam("totalPrice") String totalPrice){
         tourService.purchaseTour(tourId, guestId, adultTicketNumber, minorTicketNumber, totalPrice);
         return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+    @DeleteMapping("/removeExhibition")
+    public ResponseEntity<?> removeExhibition(@RequestParam("tourId") Long tourId, @RequestParam("exhibitionId") Long exhibitionId){
+        if(tourService.removeExhibition(tourId, exhibitionId)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/exhibitions")
+    public ResponseEntity<?> findByExhibitionsByTourId(@RequestParam("tourId") Long tourId) {
+        List<Exhibition> exhibitions = tourService.findExhibitionsByTourId(tourId);
+        return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
 }
