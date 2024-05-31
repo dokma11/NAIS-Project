@@ -19,7 +19,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
     List<Tour> findByPriceRange(String minPrice, String maxPrice);
 
     // Za generisanje pdfa, prosta sekcija pronaci sve ture koje pripadaju najucestalijoj kategoriji
-    @Query("MATCH (t:Tour)" +
+    @Query("MATCH (tour:Tour)" +
             "WITH tour.category AS category, count(tour) AS categoryCount" +
             "ORDER BY categoryCount DESC" +
             "LIMIT 1" +
@@ -28,6 +28,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
     )
     List<Tour> findByMostFrequentCategory();
 
+    // Pronalazi ture iste kategorije kao ture koje je gost kupio, a ne predlaze njih.
     @Query("MATCH (g:Guest {id: $guestId})-[:PURCHASED]->(purchased:Tour)" +
             "MATCH (similar:Tour)" +
             "WHERE similar.category = purchased.category AND NOT (g)-[:PURCHASED]->(similar)" +
@@ -36,6 +37,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findSimilarToursViaPurchaseHistory(Long guestId);
 
+    // Pronadje ture koje su kupilio drugi korisnici koji su kupili istu turu kao user (npr. ID=0)
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(commonTour:Tour)<-[:PURCHASED]-(otherGuest:Guest)" +
             "MATCH (otherGuest)-[:PURCHASED]->(recommendedTour:Tour)" +
             "WHERE NOT (loggedInGuest)-[:PURCHASED]->(recommendedTour)" +
@@ -44,7 +46,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findOtherUsersBought(Long guestId);
 
-    // Koristice se za slozenu sekciju
+    // Koristice se za slozenu sekciju (npr. ID=4)
     // Ovaj upit pronalazi ture koje su kupili drugi korisnici koji su kupili iste ture kao prijavljeni korisnik i filtrira ih na osnovu kategorije
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(commonTour:Tour)<-[:PURCHASED]-(otherGuest:Guest)" +
             "MATCH (otherGuest)-[:PURCHASED]->(recommendedTour:Tour)" +
@@ -69,7 +71,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findPopularInNearFuture(Long guestId);
 
-    // Ovaj upit pronalazi ture koje imaju egzibicije koje je korisnik posetio na drugim svojim kupljenim turama
+    // Ovaj upit pronalazi ture koje imaju egzibicije koje je korisnik posetio na drugim svojim kupljenim turama (npr. ID = 3)
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(purchasedTour:Tour)-[:HAS]->(exhibition:Exhibition)" +
             "MATCH (similarTour:Tour)-[:HAS]->(exhibition)" +
             "WHERE NOT (loggedInGuest)-[:PURCHASED]->(similarTour)" +
@@ -91,7 +93,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findBySimilarExhibitionThemes(Long guestId);
 
-    // Ovaj upit pronalazi ture koje imaju slicu temu egzibiicje i slicnu kategoriju kao tura
+    // Ovaj upit pronalazi ture koje imaju slicu temu egzibiicje i slicnu kategoriju kao tura (npr. ID=7)
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(purchasedTour:Tour)-[:HAS]->(exhibition:Exhibition)" +
             "MATCH (similarExhibition:Exhibition {theme: exhibition.theme})" +
             "MATCH (recommendedTour:Tour)-[:HAS]->(similarExhibition)" +
@@ -103,7 +105,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findBySimilarExhibitionThemesAndSimilarCategories(Long guestId);
 
-    // Ovaj upit pronalazi ture koje je kreirao isti organizator
+    // Ovaj upit pronalazi ture koje je kreirao isti organizator (npr ID=6)
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(purchasedTour:Tour)<-[:MADE]-(organizer:Organizer)" +
             "MATCH (organizer)-[:MADE]->(recommendedTour:Tour)" +
             "WHERE NOT (loggedInGuest)-[:PURCHASED]->(recommendedTour)" +
