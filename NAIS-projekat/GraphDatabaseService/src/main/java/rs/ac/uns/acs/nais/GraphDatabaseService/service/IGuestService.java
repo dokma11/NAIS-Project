@@ -14,4 +14,8 @@ public interface IGuestService {
 
     boolean update(Guest guestForUpdate);
 
+    void updateAdultTicketPriceNumber(String guestId, String tourId, String newNumber);
+
+    void updateMinorTicketPriceNumber(String guestId, String tourId, String newNumber);
+
 }

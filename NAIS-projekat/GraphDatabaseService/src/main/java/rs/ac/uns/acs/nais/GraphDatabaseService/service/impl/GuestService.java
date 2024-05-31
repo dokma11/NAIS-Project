@@ -46,4 +46,12 @@ public class GuestService implements IGuestService {
         return false;
     }
 
+    public void updateAdultTicketPriceNumber(String guestId, String tourId, String newNumber){
+        repository.updateAdultTicketPriceNumber(guestId, tourId, newNumber);
+    }
+
+    public void updateMinorTicketPriceNumber(String guestId, String tourId, String newNumber){
+        repository.updateMinorTicketPriceNumber(guestId, tourId, newNumber);
+    }
+
 }
