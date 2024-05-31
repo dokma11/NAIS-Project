@@ -145,6 +145,27 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
            "SET p.adultTicketNumber = '$adultTicketNumber', p.minorTicketNumber = '$minorTicketNumber', p.totalPrice = '$totalPrice'")
     void purchaseTour(Long tourId, Long guestId, String adultTicketNumber, String minorTicketNumber, String totalPrice);
 
+    //novo
+    @Query("MATCH (g:Guest {id: $guestId})-[p:PURCHASED]->(t:Tour {id: $tourId}) " +
+            "DELETE p")
+    boolean cancelPurchasedTour(Long guestId, Long tourId);
+
+    //novo
+    @Query("MATCH (o:Organizer {id: $orgainzerId})-[m:MADE]->(t:Tour {id: $tourId}) " +
+            "DELETE m")
+    boolean deleteConnectionsTour(Long orgainzerId, Long tourId);
+
+    //novo
+    @Query("MATCH (g:Guest {id: $guestId})-[r]->(m) " +
+            "RETURN m ")
+    List<Tour> findToursByGuestId(Long guestId);
+
+    //novo
+    @Query("MATCH (t:Organizer {id: $organizerId})-[r]->(m) " +
+    "RETURN m ")
+    List<Tour> findToursByOrganizerId(Long organizerId);
+
+
     @Query("MATCH (t:Tour {id: $tourId})-[h:HAS]->(e:Exhibition {id: $exhibitionId}) " +
             "DELETE h")
     boolean removeExhibition(Long tourId, Long exhibitionId);

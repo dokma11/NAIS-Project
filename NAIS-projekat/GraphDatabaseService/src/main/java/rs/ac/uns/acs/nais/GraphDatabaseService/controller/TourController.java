@@ -130,5 +130,34 @@ public class TourController {
         return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
+    @DeleteMapping("/removeExhibition")
+    public ResponseEntity<?> cancelPurchasedTour(@RequestParam("guestId") Long guestId, @RequestParam("tourId") Long tourId){
+        if(tourService.cancelPurchasedTour(guestId, tourId)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/exhibitions")
+    public ResponseEntity<?> findToursByGuestId(@RequestParam("guestId") Long guestId) {
+        List<Tour> exhibitions = tourService.findToursByGuestId(guestId);
+        return new ResponseEntity<>(exhibitions, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/removeExhibition")
+    public ResponseEntity<?> deleteConnectionsTour(@RequestParam("organizerId") Long organizerId, @RequestParam("tourId") Long tourId){
+        if(tourService.deleteConnectionsTour(organizerId, tourId)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/exhibitions")
+    public ResponseEntity<?> findToursByOrganizerId(@RequestParam("organizerId") Long organizerId) {
+        List<Tour> exhibitions = tourService.findToursByOrganizerId(organizerId);
+        return new ResponseEntity<>(exhibitions, HttpStatus.OK);
+    }
+
+    
 }
 

@@ -27,4 +27,9 @@ public interface ITourService {
     boolean removeExhibition(Long tourId, Long exhibitionId);
     List<Exhibition> findExhibitionsByTourId(Long tourId);
 
+    boolean cancelPurchasedTour(Long guestId, Long tourId);
+    boolean deleteConnectionsTour(Long orgainzerId, Long tourId);
+    List<Tour> findToursByGuestId(Long guestId);
+    List<Tour> findToursByOrganizerId(Long organizerId);
+
 }

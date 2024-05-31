@@ -121,4 +121,20 @@ public class TourService implements ITourService {
     }
 
 
+    public  boolean cancelPurchasedTour(Long guestId, Long tourId){
+        return tourRepository.cancelPurchasedTour(guestId, tourId);
+    }
+
+    public boolean deleteConnectionsTour(Long orgainzerId, Long tourId){
+        return tourRepository.deleteConnectionsTour(orgainzerId, tourId);
+    }
+
+    public List<Tour> findToursByGuestId(Long guestId){
+        return tourRepository.findToursByGuestId(guestId);
+    }
+
+    public List<Tour> findToursByOrganizerId(Long organizerId){
+        return tourRepository.findToursByOrganizerId(organizerId);
+    }
+
 }
