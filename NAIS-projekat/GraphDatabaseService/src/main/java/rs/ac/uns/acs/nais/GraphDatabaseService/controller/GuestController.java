@@ -47,4 +47,18 @@ public class GuestController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/updateAdultTickerPriceNumber")
+    public ResponseEntity<?> updateAdultTicketPriceNumber(@RequestParam("guestId") String guestId, @RequestParam("tourId") String tourId,
+                                                          @RequestParam("adultTicketPriceNumber") String newNumber){
+        guestService.updateAdultTicketPriceNumber(guestId, tourId, newNumber);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/updateMinorTickerPriceNumber")
+    public ResponseEntity<?> updateMinorTicketPriceNumber(@RequestParam("guestId") String guestId, @RequestParam("tourId") String tourId,
+                                                          @RequestParam("adultTicketPriceNumber") String newNumber){
+        guestService.updateMinorTicketPriceNumber(guestId, tourId, newNumber);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

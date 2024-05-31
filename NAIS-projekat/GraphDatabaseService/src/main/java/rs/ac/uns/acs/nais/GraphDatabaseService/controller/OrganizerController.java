@@ -48,10 +48,18 @@ public class OrganizerController {
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody Organizer organizer){    // Mozda DTO dodati
+    public ResponseEntity<?> update(@RequestBody Organizer organizer){
         if(organizerService.update(organizer)){
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/updateEditTime")
+    public ResponseEntity<?> updateEditTime(@RequestParam("organizerId") String organizerId, @RequestParam("tourId") String tourId,
+                                                          @RequestParam("adultTicketPriceNumber") String newTime){
+        organizerService.updateEditTime(organizerId, tourId, newTime);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

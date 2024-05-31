@@ -52,4 +52,8 @@ public class OrganizerService implements IOrganizerService {
         return organizer.orElse(null);
     }
 
+    public void updateEditTime(String organizerId, String tourId, String newTime){
+        repository.updateEditTime(organizerId, tourId, newTime);
+    }
+
 }
