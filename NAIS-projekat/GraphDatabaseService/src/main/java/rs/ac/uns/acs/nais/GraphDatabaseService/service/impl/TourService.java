@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
+import rs.ac.uns.acs.nais.GraphDatabaseService.model.Exhibition;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
 import rs.ac.uns.acs.nais.GraphDatabaseService.repository.TourRepository;
 import rs.ac.uns.acs.nais.GraphDatabaseService.service.ITourService;
@@ -104,6 +105,10 @@ public class TourService implements ITourService {
 
     public boolean removeExhibition(Long tourId, Long exhibitionId){
         return tourRepository.removeExhibition(tourId, exhibitionId);
+    }
+
+    public List<Exhibition> findExhibitionsByTourId(Long tourId){
+        return tourRepository.findExhibitionsByTourId(tourId);
     }
 
 }

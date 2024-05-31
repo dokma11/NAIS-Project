@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import rs.ac.uns.acs.nais.GraphDatabaseService.model.Exhibition;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
 
 import java.util.List;
@@ -109,6 +110,12 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/exhibitions")
+    public ResponseEntity<?> findByExhibitionsByTourId(@RequestParam("tourId") Long tourId) {
+        List<Exhibition> exhibitions = tourService.findExhibitionsByTourId(tourId);
+        return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
 }

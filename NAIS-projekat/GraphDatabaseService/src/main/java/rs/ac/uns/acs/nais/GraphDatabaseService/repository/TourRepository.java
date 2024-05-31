@@ -136,4 +136,8 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "DELETE h")
     boolean removeExhibition(Long tourId, Long exhibitionId);
 
+    @Query("MATCH (t:Tour {id: $tourId})-[r]->(m) " +
+            "RETURN m ")
+    List<Exhibition> findExhibitionsByTourId(Long tourId);
+
 }
