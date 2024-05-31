@@ -49,53 +49,53 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping
+    @GetMapping("/findOtherUsersBought")
     public ResponseEntity<?> findOtherUsersBought(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findOtherUsersBought(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/findSimilarToursViaPurchaseHistory")
     public ResponseEntity<?> findSimilarToursViaPurchaseHistory(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findSimilarToursViaPurchaseHistory(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/findPopularInNearFuture")
     public ResponseEntity<?> findPopularInNearFuture(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findPopularInNearFuture(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
 
-    @GetMapping
+    @GetMapping("/findBySimilarExhibitions")
     public ResponseEntity<?> findBySimilarExhibitions(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitions(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
 
-    @GetMapping
+    @GetMapping("/findBySimilarExhibitionThemes")
     public ResponseEntity<?> findBySimilarExhibitionThemes(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitionThemes(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
 
-    @GetMapping
+    @GetMapping("/findBySimilarExhibitionThemesAndSimilarCategories")
     public ResponseEntity<?> findBySimilarExhibitionThemesAndSimilarCategories(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitionThemesAndSimilarCategories(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
 
-    @GetMapping
+    @GetMapping("/findByOrganizer")
     public ResponseEntity<?> findByOrganizer(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findByOrganizer(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/findByOrganizerAndSimilarCategory")
     public ResponseEntity<?> findByOrganizerAndSimilarCategory(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findByOrganizerAndSimilarCategory(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
