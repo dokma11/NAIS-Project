@@ -102,4 +102,12 @@ public class TourService implements ITourService {
         tourRepository.addExhibition(tourId, exhibitionId, date);
     }
 
+    public void makesTour(Long tourId, Long organizerId){
+        String date = LocalDateTime.now().toString();
+        tourRepository.makesTour(tourId, organizerId, date);
+    }
+
+    public void purchaseTour(Long tourId, Long guestId, String adultTicketNumber, String minorTicketNumber, String totalPrice){
+        tourRepository.purchaseTour(tourId, guestId, adultTicketNumber, minorTicketNumber,totalPrice);
+    }
 }

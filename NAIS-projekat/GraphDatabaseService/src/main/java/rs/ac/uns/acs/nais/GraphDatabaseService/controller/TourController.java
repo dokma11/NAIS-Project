@@ -103,5 +103,17 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/makesTour")
+    public ResponseEntity<?> makesTour(@RequestParam("tourId") Long tourId, @RequestParam("organizerId") Long organizerId){
+        tourService.makesTour(tourId, organizerId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/purchaseTour")
+    public ResponseEntity<?> purchaseTour(@RequestParam("tourId") Long tourId, @RequestParam("guestId") Long guestId, @RequestParam("adultTicketNumber") String adultTicketNumber, @RequestParam("minorTicketNumber") String minorTicketNumber, @RequestParam("totalPrice") String totalPrice){
+        tourService.purchaseTour(tourId, guestId, adultTicketNumber, minorTicketNumber, totalPrice);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
 

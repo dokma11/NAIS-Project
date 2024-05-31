@@ -20,4 +20,7 @@ public interface ITourService {
     List<Tour> findByOrganizer(Long guestId);
     List<Tour> findByOrganizerAndSimilarCategory(Long guestId);
     void addExhibition(Long tourId, Long exhibitionId);
+    void makesTour(Long tourId, Long organizerId);
+    void purchaseTour(Long tourId, Long guestId, String adultTicketNumber, String minorTicketNumber, String totalPrice);
+
 }
