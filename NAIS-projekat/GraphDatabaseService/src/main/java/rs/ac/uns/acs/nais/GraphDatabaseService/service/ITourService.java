@@ -26,10 +26,9 @@ public interface ITourService {
     void purchaseTour(Long tourId, Long guestId, String adultTicketNumber, String minorTicketNumber, String totalPrice);
     boolean removeExhibition(Long tourId, Long exhibitionId);
     List<Exhibition> findExhibitionsByTourId(Long tourId);
-
+    List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, String minPrice, String maxPrice);
     boolean cancelPurchasedTour(Long guestId, Long tourId);
     boolean deleteConnectionsTour(Long orgainzerId, Long tourId);
     List<Tour> findToursByGuestId(Long guestId);
     List<Tour> findToursByOrganizerId(Long organizerId);
-
 }

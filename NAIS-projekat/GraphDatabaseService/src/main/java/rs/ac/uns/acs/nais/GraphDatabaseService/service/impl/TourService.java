@@ -57,10 +57,12 @@ public class TourService implements ITourService {
     public List<Tour> findByPriceRange(String minPrice, String maxPrice){
         return tourRepository.findByPriceRange(minPrice, maxPrice);
     }
+
     //korisceno za pdf
     public List<Tour> findByMostFrequentCategory(){
         return tourRepository.findByMostFrequentCategory();
     }
+
     //korisceno za pdf
     public List<Tour> findOtherUsersBoughtAndCategory(Long guestId){
         return tourRepository.findOtherUsersBoughtAndCategory(guestId);
@@ -120,7 +122,6 @@ public class TourService implements ITourService {
         return tourRepository.findExhibitionsByTourId(tourId);
     }
 
-
     public  boolean cancelPurchasedTour(Long guestId, Long tourId){
         return tourRepository.cancelPurchasedTour(guestId, tourId);
     }
@@ -137,4 +138,7 @@ public class TourService implements ITourService {
         return tourRepository.findToursByOrganizerId(organizerId);
     }
 
+    public List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, String minPrice, String maxPrice){
+        return tourRepository.findForComplexPdf(guestId, mostFrequentCategory, minPrice, maxPrice);
+    }
 }
