@@ -1,6 +1,15 @@
 server:
   port: 9050
 
+spring.cloud.stream:
+  function:
+    definition: tourGraphSupplier;tourRelationalEventConsumer
+  bindings:
+    tourGraphSupplier-out-0:
+      destination: tour-graph-event
+    tourRelationalEventConsumer-in-0:
+      destination: tour-relational-event
+
 spring:
   neo4j:
     uri: bolt://localhost:7687

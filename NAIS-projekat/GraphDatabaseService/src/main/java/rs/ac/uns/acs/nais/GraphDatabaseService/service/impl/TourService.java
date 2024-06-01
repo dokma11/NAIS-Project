@@ -1,9 +1,10 @@
 package rs.ac.uns.acs.nais.GraphDatabaseService.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
+import org.springframework.transaction.annotation.Transactional;
+import rs.ac.uns.acs.nais.GraphDatabaseService.events.tourGraphDatabase.TourGraphStatus;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Exhibition;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
 import rs.ac.uns.acs.nais.GraphDatabaseService.repository.TourRepository;
@@ -15,29 +16,37 @@ import java.util.List;
 @Service
 public class TourService implements ITourService {
 
-    public final TourRepository repository;
     private final TourRepository tourRepository;
 
-    public TourService(TourRepository repository, TourRepository tourRepository) {
-        this.repository = repository;
+    @Autowired
+    private TourStatusPublisher publisher;
+
+    public TourService(TourRepository tourRepository) {
         this.tourRepository = tourRepository;
     }
 
     @Override
     public List<Tour> findAll() {
-        return repository.findAll();
+        return tourRepository.findAll();
     }
 
     @Override
     public Tour create(Tour tour) {
-        return repository.save(tour);
+        return tourRepository.save(tour);
+    }
+
+    @Transactional
+    public Tour createTransactional(Tour tour) {
+        Tour tourReturn = tourRepository.save(tour);
+        this.publisher.raiseTourGraphEvent(tourReturn, TourGraphStatus.TOUR_CREATED);
+        return tourReturn;
     }
 
     @Override
     public boolean delete(String id) {
-        var tour = repository.findById(Long.parseLong(id));
+        var tour = tourRepository.findById(Long.parseLong(id));
         if(tour.isPresent()){
-            repository.delete(tour.get());
+            tourRepository.delete(tour.get());
             return true;
         }
         return false;
@@ -45,9 +54,9 @@ public class TourService implements ITourService {
 
     @Override
     public boolean update(Tour tourForUpdate) {
-        var tour = repository.findById(tourForUpdate.getId());
+        var tour = tourRepository.findById(tourForUpdate.getId());
         if(tour.isPresent()){
-            repository.save(tour.get());
+            tourRepository.save(tour.get());
             return true;
         }
         return false;

@@ -1,5 +1,7 @@
 package org.example.museumservice.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.example.museumservice.enums.TourCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @Table(name = "tour")
 public class Tour {
 

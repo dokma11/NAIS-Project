@@ -34,6 +34,12 @@ public class TourController {
         return new ResponseEntity<>(createdTour, HttpStatus.CREATED);
     }
 
+    @PostMapping("/transactional")
+    public ResponseEntity<?> createTransactional(@RequestBody Tour tour){
+        Tour createdTour = tourService.createTransactional(tour);
+        return new ResponseEntity<>(createdTour, HttpStatus.CREATED);
+    }
+
     @DeleteMapping
     public ResponseEntity<?> delete(@RequestParam("id") String id){
         if(tourService.delete(id)){
@@ -116,6 +122,7 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
+
     @DeleteMapping("/removeExhibition")
     public ResponseEntity<?> removeExhibition(@RequestParam("tourId") Long tourId, @RequestParam("exhibitionId") Long exhibitionId){
         if(tourService.removeExhibition(tourId, exhibitionId)){
@@ -157,7 +164,6 @@ public class TourController {
         List<Tour> exhibitions = tourService.findToursByOrganizerId(organizerId);
         return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
-
     
 }
 
