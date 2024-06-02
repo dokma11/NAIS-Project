@@ -21,10 +21,11 @@ public class PdfController {
         this.pdfService = pdfService;
     }
 
+    // 10 - 30
     @GetMapping("/in-range-pdf")
     public ResponseEntity<InputStreamResource> generateToursInPriceRangePdf(@RequestParam("requestedById") String requestedById,
-                                                                            @RequestParam("min") String minPrice,
-                                                                            @RequestParam("max") String maxPrice) throws DocumentException, IOException {
+                                                                            @RequestParam("min") Integer minPrice,
+                                                                            @RequestParam("max") Integer maxPrice) throws DocumentException, IOException {
         ByteArrayInputStream bis = pdfService.generateToursInPriceRangePdf(Integer.valueOf(requestedById), minPrice, maxPrice);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=cleansed-items.pdf");
@@ -36,6 +37,7 @@ public class PdfController {
                 .body(new InputStreamResource(bis));
     }
 
+    // ID 7
     @GetMapping("/category-pdf/{id}")
     public ResponseEntity<InputStreamResource> generateTourByMostFrequentCategoryPdf(@PathVariable String id) throws DocumentException, IOException {
         ByteArrayInputStream bis = pdfService.generateToursByMostFrequentCategoryPdf(Integer.valueOf(id));
@@ -49,6 +51,7 @@ public class PdfController {
                 .body(new InputStreamResource(bis));
     }
 
+    // ID 7
     @GetMapping("/others-category-pdf/{id}")
     public ResponseEntity<InputStreamResource> generateToursByOthersPurchasesAndCategoryPdf(@PathVariable String id) throws DocumentException, IOException {
         ByteArrayInputStream bis = pdfService.generateToursByOthersPurchasesAndCategoryPdf(Integer.valueOf(id));
@@ -64,8 +67,8 @@ public class PdfController {
 
     @GetMapping("/generate-pdf")
     public ResponseEntity<InputStreamResource> generateToursByOthersPurchasesAndCategoryPdf(@RequestParam("requestedById") String requestedById,
-                                                                                            @RequestParam("min") String minPrice,
-                                                                                            @RequestParam("max") String maxPrice) throws DocumentException, IOException {
+                                                                                            @RequestParam("min") Integer minPrice,
+                                                                                            @RequestParam("max") Integer maxPrice) throws DocumentException, IOException {
         ByteArrayInputStream bis = pdfService.generatePdf(Integer.valueOf(requestedById), minPrice, maxPrice);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=cleansed-items.pdf");
