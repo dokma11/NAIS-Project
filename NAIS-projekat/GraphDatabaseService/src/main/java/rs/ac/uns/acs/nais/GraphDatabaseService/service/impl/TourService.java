@@ -54,7 +54,7 @@ public class TourService implements ITourService {
     }
 
     //korisceno za pdf
-    public List<Tour> findByPriceRange(String minPrice, String maxPrice){
+    public List<Tour> findByPriceRange(Integer minPrice, Integer maxPrice){
         return tourRepository.findByPriceRange(minPrice, maxPrice);
     }
 
@@ -114,20 +114,20 @@ public class TourService implements ITourService {
         tourRepository.purchaseTour(tourId, guestId, adultTicketNumber, minorTicketNumber,totalPrice);
     }
 
-    public boolean removeExhibition(Long tourId, Long exhibitionId){
-        return tourRepository.removeExhibition(tourId, exhibitionId);
+    public void removeExhibition(Long tourId, Long exhibitionId){
+        tourRepository.removeExhibition(tourId, exhibitionId);
     }
 
     public List<Exhibition> findExhibitionsByTourId(Long tourId){
         return tourRepository.findExhibitionsByTourId(tourId);
     }
 
-    public  boolean cancelPurchasedTour(Long guestId, Long tourId){
-        return tourRepository.cancelPurchasedTour(guestId, tourId);
+    public void cancelPurchasedTour(Long guestId, Long tourId){
+        tourRepository.cancelPurchasedTour(guestId, tourId);
     }
 
-    public boolean deleteConnectionsTour(Long orgainzerId, Long tourId){
-        return tourRepository.deleteConnectionsTour(orgainzerId, tourId);
+    public void deleteConnectionsTour(Long orgainzerId, Long tourId){
+        tourRepository.deleteConnectionsTour(orgainzerId, tourId);
     }
 
     public List<Tour> findToursByGuestId(Long guestId){
@@ -138,7 +138,7 @@ public class TourService implements ITourService {
         return tourRepository.findToursByOrganizerId(organizerId);
     }
 
-    public List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, String minPrice, String maxPrice){
+    public List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, Integer minPrice, Integer maxPrice){
         return tourRepository.findForComplexPdf(guestId, mostFrequentCategory, minPrice, maxPrice);
     }
 }
