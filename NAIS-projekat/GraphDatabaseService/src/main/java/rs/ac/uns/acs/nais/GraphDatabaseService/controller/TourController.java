@@ -116,6 +116,7 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
+
     @DeleteMapping("/removeExhibition")
     public ResponseEntity<?> removeExhibition(@RequestParam("tourId") Long tourId, @RequestParam("exhibitionId") Long exhibitionId){
         if(tourService.removeExhibition(tourId, exhibitionId)){
@@ -130,7 +131,7 @@ public class TourController {
         return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
-    @DeleteMapping("/removeExhibition")
+    @DeleteMapping("/cancelPurchasedTour")
     public ResponseEntity<?> cancelPurchasedTour(@RequestParam("guestId") Long guestId, @RequestParam("tourId") Long tourId){
         if(tourService.cancelPurchasedTour(guestId, tourId)){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -138,13 +139,13 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/exhibitions")
+    @GetMapping("/findByGuestId")
     public ResponseEntity<?> findToursByGuestId(@RequestParam("guestId") Long guestId) {
         List<Tour> exhibitions = tourService.findToursByGuestId(guestId);
         return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
-    @DeleteMapping("/removeExhibition")
+    @DeleteMapping("/deleteConnectionsTour")
     public ResponseEntity<?> deleteConnectionsTour(@RequestParam("organizerId") Long organizerId, @RequestParam("tourId") Long tourId){
         if(tourService.deleteConnectionsTour(organizerId, tourId)){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -152,12 +153,10 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/exhibitions")
+    @GetMapping("/findByOrganizerId")
     public ResponseEntity<?> findToursByOrganizerId(@RequestParam("organizerId") Long organizerId) {
         List<Tour> exhibitions = tourService.findToursByOrganizerId(organizerId);
         return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
-    
 }
-

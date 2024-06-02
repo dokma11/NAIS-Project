@@ -38,23 +38,24 @@ services:
       SPRING_NEO4J_PASSWORD: password
 
   relational-service:
-     build:
-       context: ./museumservice
-       dockerfile: Dockerfile
-     image: relational-service:latest
-     depends_on:
-       - postgresdb
-       - eureka-server
-     environment:
-       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
-       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresdb:5432/museum-ms-backend"
-       SPRING_DATASOURCE_USERNAME: postgres
-       SPRING_DATASOURCE_PASSWORD: super
-     ports:
-       - "8088:8088"
+    build:
+      context: ./museumservice
+      dockerfile: Dockerfile
+    image: relational-service:latest
+    depends_on:
+      - postgresdb
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresdb:5432/museum-ms-backend"
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: super
+    ports:
+      - "8088:8088"
 
   neo4j:
     image: neo4j
+    restart: always
     container_name: neo4j
     ports:
       - "7474:7474"
@@ -62,18 +63,22 @@ services:
     environment:
       NEO4J_AUTH: neo4j/password
     volumes:
-      - ./data:/data
+      - neo4j_data:/var/lib/neo4j/data
 
   postgresdb:
-     image: postgres:latest
-     ports:
-       - "5432:5432"
-     environment:
-       POSTGRES_DB: "museum-ms-backend"
-       POSTGRES_USER: "postgres"
-       POSTGRES_PASSWORD: "super"
-     volumes:
-       - data:/var/lib/postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "museum-ms-backend"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "super"
+    volumes:
+      - data:/var/lib/postgres
 
 volumes:
   data:
+
+  neo4j_data:
+    driver: local
+    name: recommendations-data
