@@ -9,13 +9,13 @@ import rs.ac.uns.acs.nais.GraphDatabaseService.model.Guest;
 public interface GuestRepository extends Neo4jRepository<Guest, Long> {
 
     @Query("MATCH (g:Guest {id: $guestId})-[p:PURCHASED]->(t:Tour {id: $tourId}) " +
-            "SET p.adultTicketNumber = '$newNumber' " +
+            "SET p.adultTicketNumber = $newNumber " +
             "RETURN p ")
-    void updateAdultTicketPriceNumber(String guestId, String tourId, String newNumber);
+    void updateAdultTicketPriceNumber(Integer guestId, Integer tourId, String newNumber);
 
     @Query("MATCH (g:Guest {id: $guestId})-[p:PURCHASED]->(t:Tour {id: $tourId}) " +
-            "SET p.minorTicketNumber = '$newNumber' " +
+            "SET p.minorTicketNumber = $newNumber " +
             "RETURN p ")
-    void updateMinorTicketPriceNumber(String guestId, String tourId, String newNumber);
+    void updateMinorTicketPriceNumber(Integer guestId, Integer tourId, String newNumber);
 
 }

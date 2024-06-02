@@ -10,5 +10,5 @@ public interface IOrganizerService {
     boolean delete(String id);
     boolean update(Organizer tour);
     Organizer findById(String id);
-    void updateEditTime(String organizerId, String tourId, String newTime);
+    void updateEditTime(Integer organizerId, Integer tourId, String newTime);
 } 

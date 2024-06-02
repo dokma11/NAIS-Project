@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.acs.nais.GraphDatabaseService.model.Make;
 import rs.ac.uns.acs.nais.GraphDatabaseService.model.Organizer;
 import rs.ac.uns.acs.nais.GraphDatabaseService.repository.OrganizerRepository;
 import rs.ac.uns.acs.nais.GraphDatabaseService.service.IOrganizerService;
@@ -52,7 +53,7 @@ public class OrganizerService implements IOrganizerService {
         return organizer.orElse(null);
     }
 
-    public void updateEditTime(String organizerId, String tourId, String newTime){
+    public void updateEditTime(Integer organizerId, Integer tourId, String newTime){
         repository.updateEditTime(organizerId, tourId, newTime);
     }
 

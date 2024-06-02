@@ -256,12 +256,6 @@ public class PdfService implements IPdfService {
     public ByteArrayInputStream generatePdf(Integer requestedById, Integer minPrice, Integer maxPrice) throws DocumentException, IOException, com.itextpdf.text.DocumentException {
         List<Tour> toursInPriceRange = tourService.findByPriceRange(minPrice, maxPrice);
         List<Tour> mostFrequentCategoryTours = tourService.findByMostFrequentCategory();
-
-        System.out.println(mostFrequentCategoryTours.get(0).getCategory().toString());
-        System.out.println(mostFrequentCategoryTours.get(0).getCategory().toString());
-        System.out.println(mostFrequentCategoryTours.get(0).getCategory().toString());
-        System.out.println(mostFrequentCategoryTours.get(0).getCategory().toString());
-
         List<Tour> complexSectionTours = tourService.findForComplexPdf(requestedById, mostFrequentCategoryTours.get(0).getCategory().toString(), minPrice, maxPrice);
 
         String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now());
