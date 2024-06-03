@@ -37,17 +37,27 @@ public class PdfService implements IPdfService {
     }
 
     @Override
-    public ByteArrayInputStream generateToursInPriceRangePdf(Integer requestedById, String minPrice, String maxPrice) throws DocumentException, IOException, com.itextpdf.text.DocumentException {
+    public ByteArrayInputStream generateToursInPriceRangePdf(Integer requestedById, Integer minPrice, Integer maxPrice) throws DocumentException, IOException, com.itextpdf.text.DocumentException {
         List<Tour> tours = tourService.findByPriceRange(minPrice, maxPrice);
         String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now());
         String desktopPath = System.getProperty("user.home") + "/Desktop/personal_tour_requests_report" + timestamp + ".pdf";
+
+        File desktopDir = new File(System.getProperty("user.home") + "/Desktop");
+        if (!desktopDir.exists()) {
+            desktopDir.mkdirs();
+        }
+
         Document document = new Document(PageSize.A4);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+
         PdfWriter.getInstance(document, new FileOutputStream(desktopPath));
+        PdfWriter.getInstance(document, out);
 
         document.open();
         addContentToDocument(document, requestedById, tours, false, false);
         document.close();
+
+        out.close();
 
         return new ByteArrayInputStream(out.toByteArray());
     }
@@ -83,13 +93,23 @@ public class PdfService implements IPdfService {
         List<Tour> tours = tourService.findOtherUsersBoughtAndCategory(requestedById.longValue()); // treba proveriti
         String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now());
         String desktopPath = System.getProperty("user.home") + "/Desktop/personal_tour_requests_report" + timestamp + ".pdf";
+
+        File desktopDir = new File(System.getProperty("user.home") + "/Desktop");
+        if (!desktopDir.exists()) {
+            desktopDir.mkdirs();
+        }
+
         Document document = new Document(PageSize.A4);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+
         PdfWriter.getInstance(document, new FileOutputStream(desktopPath));
+        PdfWriter.getInstance(document, out);
 
         document.open();
         addContentToDocument(document, requestedById, tours, false, true);
         document.close();
+
+        out.close();
 
         return new ByteArrayInputStream(out.toByteArray());
     }
@@ -115,7 +135,6 @@ public class PdfService implements IPdfService {
         Font metaFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
         document.add(new Paragraph("Generated on: " + LocalDate.now().format(DateTimeFormatter.ISO_DATE), metaFont));
-        //document.add(new Paragraph("Requested by: " + user.getFirstName() + ' ' + user.getLastName(), metaFont));
 
         if(category){
             document.add(new Paragraph("Category: " + tours.get(0).getCategory().toString(), metaFont));
@@ -213,11 +232,20 @@ public class PdfService implements IPdfService {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
-            cell.setPaddingLeft(5);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
+            if(organizer != null){
+                cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
+            else{
+                cell = new PdfPCell(new Phrase("None", tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
 
         }
 
@@ -225,20 +253,30 @@ public class PdfService implements IPdfService {
     }
 
     @Override
-    public ByteArrayInputStream generatePdf(Integer requestedById, String minPrice, String maxPrice) throws DocumentException, IOException, com.itextpdf.text.DocumentException {
+    public ByteArrayInputStream generatePdf(Integer requestedById, Integer minPrice, Integer maxPrice) throws DocumentException, IOException, com.itextpdf.text.DocumentException {
         List<Tour> toursInPriceRange = tourService.findByPriceRange(minPrice, maxPrice);
         List<Tour> mostFrequentCategoryTours = tourService.findByMostFrequentCategory();
         List<Tour> complexSectionTours = tourService.findForComplexPdf(requestedById, mostFrequentCategoryTours.get(0).getCategory().toString(), minPrice, maxPrice);
 
         String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now());
         String desktopPath = System.getProperty("user.home") + "/Desktop/personal_tour_requests_report" + timestamp + ".pdf";
+
+        File desktopDir = new File(System.getProperty("user.home") + "/Desktop");
+        if (!desktopDir.exists()) {
+            desktopDir.mkdirs();
+        }
+
         Document document = new Document(PageSize.A4);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+
         PdfWriter.getInstance(document, new FileOutputStream(desktopPath));
+        PdfWriter.getInstance(document, out);
 
         document.open();
         addComplexContentToDocument(document, requestedById, toursInPriceRange, mostFrequentCategoryTours, complexSectionTours);
         document.close();
+
+        out.close();
 
         return new ByteArrayInputStream(out.toByteArray());
     }
@@ -256,10 +294,6 @@ public class PdfService implements IPdfService {
         Font metaFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
         document.add(new Paragraph("Generated on: " + LocalDate.now().format(DateTimeFormatter.ISO_DATE), metaFont));
-
-//        if(category){
-//            document.add(new Paragraph("Category: " + tours.get(0).getCategory().toString(), metaFont));
-//        }
 
         document.add(new Paragraph(" "));
 
@@ -353,15 +387,26 @@ public class PdfService implements IPdfService {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
-            cell.setPaddingLeft(5);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
+            if(organizer != null){
+                cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
+            else{
+                cell = new PdfPCell(new Phrase("None", tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
 
         }
 
         document.add(table);
+
+        document.add(new Paragraph(" "));
 
         heading = new Paragraph("Tours with the most frequent category", font);
         heading.setAlignment(Element.ALIGN_CENTER);
@@ -372,6 +417,8 @@ public class PdfService implements IPdfService {
 
         document.add(new Paragraph(" "));
         document.add(new Paragraph("Category: " + mostFrequentCategoryTours.get(0).getCategory().toString(), metaFont));
+
+        document.add(new Paragraph(" "));
 
         table = new PdfPTable(8);
         table.setWidthPercentage(100);
@@ -459,15 +506,26 @@ public class PdfService implements IPdfService {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
-            cell.setPaddingLeft(5);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
+            if(organizer != null){
+                cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
+            else{
+                cell = new PdfPCell(new Phrase("None", tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
 
         }
 
         document.add(table);
+
+        document.add(new Paragraph(" "));
 
         heading = new Paragraph("Recommended tours based on what other users bought, price range and most frequent category", font);
         heading.setAlignment(Element.ALIGN_CENTER);
@@ -476,13 +534,12 @@ public class PdfService implements IPdfService {
         document.add(new Paragraph(" "));
         document.add(new Paragraph("Generated on: " + LocalDate.now().format(DateTimeFormatter.ISO_DATE), metaFont));
 
+        document.add(new Paragraph(" "));
+
         table = new PdfPTable(8);
         table.setWidthPercentage(100);
         table.setWidths(new int[]{3, 3, 2, 2, 2, 2, 2, 3});
 
-//        Font tableHeaderFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-//
-//        PdfPCell hcell;
         hcell = new PdfPCell(new Phrase("Name", tableHeaderFont));
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
@@ -562,11 +619,20 @@ public class PdfService implements IPdfService {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
-            cell.setPaddingLeft(5);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
+            if(organizer != null){
+                cell = new PdfPCell(new Phrase(organizer.getFirstName() + ' ' + organizer.getLastName(), tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
+            else{
+                cell = new PdfPCell(new Phrase("None", tableFont));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
 
         }
 

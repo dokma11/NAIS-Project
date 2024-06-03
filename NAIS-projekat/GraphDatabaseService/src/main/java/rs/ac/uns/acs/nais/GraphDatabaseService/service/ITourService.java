@@ -11,7 +11,7 @@ public interface ITourService {
     Tour createTransactional(Tour tour);
     boolean delete(String id);
     boolean update(Tour tour);
-    List<Tour> findByPriceRange(String minPrice, String maxPrice);
+    List<Tour> findByPriceRange(Integer minPrice, Integer maxPrice);
     List<Tour> findByMostFrequentCategory();
     List<Tour> findOtherUsersBoughtAndCategory(Long guestId);
     List<Tour> findOtherUsersBought(Long guestId);
@@ -25,11 +25,11 @@ public interface ITourService {
     void addExhibition(Long tourId, Long exhibitionId);
     void makesTour(Long tourId, Long organizerId);
     void purchaseTour(Long tourId, Long guestId, String adultTicketNumber, String minorTicketNumber, String totalPrice);
-    boolean removeExhibition(Long tourId, Long exhibitionId);
+    void removeExhibition(Long tourId, Long exhibitionId);
     List<Exhibition> findExhibitionsByTourId(Long tourId);
-    List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, String minPrice, String maxPrice);
-    boolean cancelPurchasedTour(Long guestId, Long tourId);
-    boolean deleteConnectionsTour(Long orgainzerId, Long tourId);
+    List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, Integer minPrice, Integer maxPrice);
+    void cancelPurchasedTour(Long guestId, Long tourId);
+    void deleteConnectionsTour(Long orgainzerId, Long tourId);
     List<Tour> findToursByGuestId(Long guestId);
     List<Tour> findToursByOrganizerId(Long organizerId);
 }

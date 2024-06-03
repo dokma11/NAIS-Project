@@ -56,8 +56,8 @@ public class OrganizerController {
     }
 
     @PutMapping("/updateEditTime")
-    public ResponseEntity<?> updateEditTime(@RequestParam("organizerId") String organizerId, @RequestParam("tourId") String tourId,
-                                                          @RequestParam("adultTicketPriceNumber") String newTime){
+    public ResponseEntity<?> updateEditTime(@RequestParam("organizerId") Integer organizerId, @RequestParam("tourId") Integer tourId,
+                                                          @RequestParam("editTime") String newTime){
         organizerService.updateEditTime(organizerId, tourId, newTime);
         return new ResponseEntity<>(HttpStatus.OK);
     }

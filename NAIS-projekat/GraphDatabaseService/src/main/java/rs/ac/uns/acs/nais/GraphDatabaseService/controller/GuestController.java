@@ -48,14 +48,14 @@ public class GuestController {
     }
 
     @PutMapping("/updateAdultTickerPriceNumber")
-    public ResponseEntity<?> updateAdultTicketPriceNumber(@RequestParam("guestId") String guestId, @RequestParam("tourId") String tourId,
+    public ResponseEntity<?> updateAdultTicketPriceNumber(@RequestParam("guestId") Integer guestId, @RequestParam("tourId") Integer tourId,
                                                           @RequestParam("adultTicketPriceNumber") String newNumber){
         guestService.updateAdultTicketPriceNumber(guestId, tourId, newNumber);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/updateMinorTickerPriceNumber")
-    public ResponseEntity<?> updateMinorTicketPriceNumber(@RequestParam("guestId") String guestId, @RequestParam("tourId") String tourId,
+    public ResponseEntity<?> updateMinorTicketPriceNumber(@RequestParam("guestId") Integer guestId, @RequestParam("tourId") Integer tourId,
                                                           @RequestParam("adultTicketPriceNumber") String newNumber){
         guestService.updateMinorTicketPriceNumber(guestId, tourId, newNumber);
         return new ResponseEntity<>(HttpStatus.OK);

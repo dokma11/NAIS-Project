@@ -13,11 +13,11 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
 
     // Za generisanje pdfa, prosta sekcija pronaci sve ture u cenovnom rangu
     @Query("MATCH (t:Tour) " +
-            "WHERE toFloat(t.adultTicketPrice) < $maxPrice AND toFloat(t.adultTicketPrice) > $minPrice " +
-            "AND toFloat(t.minorTicketPrice) < $maxPrice AND toFloat(t.minorTicketPrice) > $minPrice " +
+            "WHERE toInteger(t.adultTicketPrice) < $maxPrice AND toInteger(t.adultTicketPrice) > $minPrice " +
+            "AND toInteger(t.minorTicketPrice) < $maxPrice AND toInteger(t.minorTicketPrice) > $minPrice " +
             "RETURN t"
     )
-    List<Tour> findByPriceRange(String minPrice, String maxPrice);
+    List<Tour> findByPriceRange(Integer minPrice, Integer maxPrice);
 
     // Za generisanje pdfa, prosta sekcija pronaci sve ture koje pripadaju najucestalijoj kategoriji
     @Query("MATCH (tour:Tour) " +
@@ -106,7 +106,7 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
             "LIMIT 10")
     List<Tour> findBySimilarExhibitionThemesAndSimilarCategories(Long guestId);
 
-    // Ovaj upit pronalazi ture koje je kreirao isti organizator (npr ID=6)
+    // Ovaj upit pronalazi ture koje je kreirao isti organizator (npr ID=2)
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(purchasedTour:Tour)<-[:MADE]-(organizer:Organizer) " +
             "MATCH (organizer)-[:MADE]->(recommendedTour:Tour) " +
             "WHERE NOT (loggedInGuest)-[:PURCHASED]->(recommendedTour) " +
@@ -134,9 +134,8 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
 
     @Query("MATCH (o:Organizer {id: $organizerId}), (t:Tour {id: $tourId}) " +
             "CREATE (o)-[m:MADE]->(t) " +
-            "SET h.editTime = '$editTime'")
+            "SET m.editTime = '$editTime'")
     void makesTour(Long tourId, Long organizerId, String editTime);
-
 
     @Query("MATCH (g:Guest {id: $guestId}), (t:Tour {id: $tourId}) " +
            "CREATE (g)-[p:PURCHASED]->(t) " +
@@ -146,12 +145,12 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
     //novo
     @Query("MATCH (g:Guest {id: $guestId})-[p:PURCHASED]->(t:Tour {id: $tourId}) " +
             "DELETE p")
-    boolean cancelPurchasedTour(Long guestId, Long tourId);
+    void cancelPurchasedTour(Long guestId, Long tourId);
 
     //novo
     @Query("MATCH (o:Organizer {id: $orgainzerId})-[m:MADE]->(t:Tour {id: $tourId}) " +
             "DELETE m")
-    boolean deleteConnectionsTour(Long orgainzerId, Long tourId);
+    void deleteConnectionsTour(Long orgainzerId, Long tourId);
 
     //novo
     @Query("MATCH (g:Guest {id: $guestId})-[r]->(m) " +
@@ -165,25 +164,25 @@ public interface TourRepository extends Neo4jRepository<Tour, Long> {
 
     @Query("MATCH (t:Tour {id: $tourId})-[h:HAS]->(e:Exhibition {id: $exhibitionId}) " +
             "DELETE h")
-    boolean removeExhibition(Long tourId, Long exhibitionId);
+    void removeExhibition(Long tourId, Long exhibitionId);
 
     @Query("MATCH (t:Tour {id: $tourId})-[r]->(m) " +
             "RETURN m ")
     List<Exhibition> findExhibitionsByTourId(Long tourId);
 
-    // Koristice se za slozenu sekciju v2 (npr. ID=4)
+    // Koristice se za slozenu sekciju v2 (npr. ID=7)
     // Ovaj upit pronalazi ture koje su kupili drugi korisnici koji su kupili iste ture kao prijavljeni korisnik
     // i filtrira ih na osnovu najucestalije kategorije i cenovnog ranga
     @Query("MATCH (loggedInGuest:Guest {id: $guestId})-[:PURCHASED]->(commonTour:Tour)<-[:PURCHASED]-(otherGuest:Guest) " +
             "MATCH (otherGuest)-[:PURCHASED]->(recommendedTour:Tour) " +
             "WHERE NOT (loggedInGuest)-[:PURCHASED]->(recommendedTour) " +
-            "AND recommendedTour.category = '$mostFrequentCategory' " +
-            "AND toFloat(recommendedTour.adultTicketPrice) < $maxPrice AND toFloat(recommendedTour.adultTicketPrice) > $minPrice " +
-            "toFloat(recommendedTour.minorTicketPrice) < $maxPrice AND toFloat(recommendedTour.minorTicketPrice) > $minPrice " +
+            "AND recommendedTour.category = $mostFrequentCategory " +
+            "AND toInteger(recommendedTour.adultTicketPrice) < $maxPrice AND toInteger(recommendedTour.adultTicketPrice) > $minPrice " +
+            "AND toInteger(recommendedTour.minorTicketPrice) < $maxPrice AND toInteger(recommendedTour.minorTicketPrice) > $minPrice " +
             "WITH DISTINCT recommendedTour, count(DISTINCT otherGuest) AS popularity " +
             "RETURN recommendedTour " +
             "ORDER BY popularity DESC " +
             "LIMIT 10")
-    List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, String minPrice, String maxPrice);
+    List<Tour> findForComplexPdf(Integer guestId, String mostFrequentCategory, Integer minPrice, Integer maxPrice);
 
 }

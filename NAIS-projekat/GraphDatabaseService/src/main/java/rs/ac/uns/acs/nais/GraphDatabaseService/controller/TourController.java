@@ -74,30 +74,35 @@ public class TourController {
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
+    // Uraditi sa ID 7
     @GetMapping("/findBySimilarExhibitions")
     public ResponseEntity<?> findBySimilarExhibitions(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitions(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
+    // Uraditi sa ID 7
     @GetMapping("/findBySimilarExhibitionThemes")
     public ResponseEntity<?> findBySimilarExhibitionThemes(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitionThemes(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
+    // Upit raditi sa ID 7
     @GetMapping("/findBySimilarExhibitionThemesAndSimilarCategories")
     public ResponseEntity<?> findBySimilarExhibitionThemesAndSimilarCategories(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findBySimilarExhibitionThemesAndSimilarCategories(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
+    // Upit raditi sa ID 5
     @GetMapping("/findByOrganizer")
     public ResponseEntity<?> findByOrganizer(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findByOrganizer(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
+    // Upit raditi sa ID 5
     @GetMapping("/findByOrganizerAndSimilarCategory")
     public ResponseEntity<?> findByOrganizerAndSimilarCategory(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findByOrganizerAndSimilarCategory(id);
@@ -110,6 +115,7 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    // PROVERITI (ERROR BIO U SAMOM UPITI ISPRAVIO SAM)
     @PostMapping("/makesTour")
     public ResponseEntity<?> makesTour(@RequestParam("tourId") Long tourId, @RequestParam("organizerId") Long organizerId){
         tourService.makesTour(tourId, organizerId);
@@ -120,50 +126,60 @@ public class TourController {
     public ResponseEntity<?> purchaseTour(@RequestParam("tourId") Long tourId, @RequestParam("guestId") Long guestId, @RequestParam("adultTicketNumber") String adultTicketNumber, @RequestParam("minorTicketNumber") String minorTicketNumber, @RequestParam("totalPrice") String totalPrice){
         tourService.purchaseTour(tourId, guestId, adultTicketNumber, minorTicketNumber, totalPrice);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
 
     @DeleteMapping("/removeExhibition")
     public ResponseEntity<?> removeExhibition(@RequestParam("tourId") Long tourId, @RequestParam("exhibitionId") Long exhibitionId){
-        if(tourService.removeExhibition(tourId, exhibitionId)){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+        tourService.removeExhibition(tourId, exhibitionId);
+        return new ResponseEntity<>(HttpStatus.OK);
+}
 
     @GetMapping("/exhibitions")
-    public ResponseEntity<?> findByExhibitionsByTourId(@RequestParam("tourId") Long tourId) {
+    public ResponseEntity<?> findExhibitionsByTourId(@RequestParam("tourId") Long tourId) {
         List<Exhibition> exhibitions = tourService.findExhibitionsByTourId(tourId);
         return new ResponseEntity<>(exhibitions, HttpStatus.OK);
     }
 
     @DeleteMapping("/cancelPurchasedTour")
     public ResponseEntity<?> cancelPurchasedTour(@RequestParam("guestId") Long guestId, @RequestParam("tourId") Long tourId){
-        if(tourService.cancelPurchasedTour(guestId, tourId)){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        tourService.cancelPurchasedTour(guestId, tourId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/findByGuestId")
-    public ResponseEntity<?> findToursByGuestId(@RequestParam("guestId") Long guestId) {
-        List<Tour> exhibitions = tourService.findToursByGuestId(guestId);
-        return new ResponseEntity<>(exhibitions, HttpStatus.OK);
+    public ResponseEntity<?> findByGuestId(@RequestParam("guestId") Long guestId) {
+        List<Tour> tours = tourService.findToursByGuestId(guestId);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByPriceRange")
+    public ResponseEntity<?> findByPriceRange(@RequestParam("minPrice") Integer minPrice, @RequestParam("maxPrice") Integer maxPrice) {
+        List<Tour> tours = tourService.findByPriceRange(minPrice, maxPrice);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+    @GetMapping("/findOtherUsersBoughtAndCategory")
+    public ResponseEntity<?> findOtherUsersBoughtAndCategory(@RequestParam("guestId") Long guestId) {
+        List<Tour> tours = tourService.findOtherUsersBoughtAndCategory(guestId);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByMostFrequentCategory")
+    public ResponseEntity<?> findByMostFrequentCategory() {
+        List<Tour> tours = tourService.findByMostFrequentCategory();
+        return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteConnectionsTour")
     public ResponseEntity<?> deleteConnectionsTour(@RequestParam("organizerId") Long organizerId, @RequestParam("tourId") Long tourId){
-        if(tourService.deleteConnectionsTour(organizerId, tourId)){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        tourService.deleteConnectionsTour(organizerId, tourId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/findByOrganizerId")
     public ResponseEntity<?> findToursByOrganizerId(@RequestParam("organizerId") Long organizerId) {
-        List<Tour> exhibitions = tourService.findToursByOrganizerId(organizerId);
-        return new ResponseEntity<>(exhibitions, HttpStatus.OK);
+        List<Tour> tours = tourService.findToursByOrganizerId(organizerId);
+        return new ResponseEntity<>(tours, HttpStatus.OK);
     }
-    
-}
 
+}
