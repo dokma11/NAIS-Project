@@ -17,7 +17,7 @@ public class TourGraphConfig {
     }
 
     @Bean
-    public Supplier<Flux<TourGraphEvent>> tourSupplier(Sinks.Many<TourGraphEvent> sink){
+    public Supplier<Flux<TourGraphEvent>> tourGraphSupplier(Sinks.Many<TourGraphEvent> sink){
         return sink::asFlux;
     }
 

@@ -8,6 +8,8 @@ services:
     image: eureka-server:latest
     ports:
       - "8761:8761"
+    networks:
+      - microservices-net
 
   gateway-api:
     build:
@@ -22,6 +24,8 @@ services:
       - relational-service
     ports:
       - "9000:9000"
+    networks:
+      - microservices-net
 
   graph-service:
     build:
@@ -36,6 +40,10 @@ services:
       SPRING_NEO4J_URI: "bolt://neo4j:7687"
       SPRING_NEO4J_USERNAME: neo4j
       SPRING_NEO4J_PASSWORD: password
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: "kafka1:19091"
+    command: [ "--spring.cloud.stream.kafka.binder.brokers=kafka1:19091", "--spring.cloud.stream.bindings.output.destination=tour-graph-event", "--spring.cloud.stream.kafka.bindings.output.producer.configuration.topic=tour-graph-event", "--spring.cloud.stream.kafka.bindings.output.producer.configuration.partitions=1" ]
+    networks:
+      - microservices-net
 
   relational-service:
     build:
@@ -50,8 +58,12 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgresdb:5432/museum-ms-backend"
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: super
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: "kafka2:19092"
+    command: [ "--spring.cloud.stream.kafka.binder.brokers=kafka2:19092", "--spring.cloud.stream.bindings.output.destination=tour-relational-event", "--spring.cloud.stream.kafka.bindings.output.producer.configuration.topic=tour-relational-event", "--spring.cloud.stream.kafka.bindings.output.producer.configuration.partitions=1" ]
     ports:
       - "8088:8088"
+    networks:
+      - microservices-net
 
   neo4j:
     image: neo4j
@@ -64,6 +76,8 @@ services:
       NEO4J_AUTH: neo4j/password
     volumes:
       - neo4j_data:/var/lib/neo4j/data
+    networks:
+      - microservices-net
 
   postgresdb:
     image: postgres:latest
@@ -74,7 +88,9 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "super"
     volumes:
-      - data:/var/lib/postgres
+      - data:/var/lib/postgresql/data
+    networks:
+      - microservices-net
 
   zoo:
     image: zookeeper:3.4.9
@@ -88,6 +104,8 @@ services:
     volumes:
       - ./zk-single-kafka-multiple/zoo/data:/data
       - ./zk-single-kafka-multiple/zoo/datalog:/datalog
+    networks:
+      - microservices-net
 
   kafka1:
     image: confluentinc/cp-kafka:5.3.0
@@ -95,33 +113,39 @@ services:
     ports:
       - "9091:9091"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19091,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9091
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19091,LISTENER_DOCKER_EXTERNAL://kafka1:9091
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
       KAFKA_ZOOKEEPER_CONNECT: "zoo:2181"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
     volumes:
       - ./zk-single-kafka-multiple/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo
+    networks:
+      - microservices-net
 
   kafka2:
-      image: confluentinc/cp-kafka:5.3.0
-      hostname: kafka2
-      ports:
-        - "9092:9092"
-      environment:
-        KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka2:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
-        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
-        KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
-        KAFKA_ZOOKEEPER_CONNECT: "zoo:2181"
-        KAFKA_BROKER_ID: 2
-        KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      volumes:
-        - ./zk-single-kafka-multiple/kafka2/data:/var/lib/kafka/data
-      depends_on:
-        - zoo
+    image: confluentinc/cp-kafka:5.3.0
+    hostname: kafka2
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka2:19092,LISTENER_DOCKER_EXTERNAL://kafka2:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zoo:2181"
+      KAFKA_BROKER_ID: 2
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+    volumes:
+      - ./zk-single-kafka-multiple/kafka2/data:/var/lib/kafka/data
+    depends_on:
+      - zoo
+    networks:
+      - microservices-net
 
   manager:
     image: sheepkiller/kafka-manager
@@ -131,10 +155,13 @@ services:
       - ZK_HOSTS=zoo:2181
     depends_on:
       - zoo
+    networks:
+      - microservices-net
 
 volumes:
   data:
-
   neo4j_data:
-    driver: local
-    name: recommendations-data
+
+networks:
+  microservices-net:
+    driver: bridge

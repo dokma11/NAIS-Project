@@ -1,18 +1,20 @@
 server:
   port: 9050
 
-spring.cloud.stream:
-  function:
-    definition: tourGraphSupplier;tourRelationalEventConsumer
-  bindings:
-    tourGraphSupplier-out-0:
-      destination: tour-graph-event
-    tourRelationalEventConsumer-in-0:
-      destination: tour-relational-event
-
 spring:
+  cloud:
+    stream:
+      function:
+        definition: tourGraphSupplier;tourRelationalEventConsumer
+      bindings:
+        tourGraphSupplier-out-0:
+          destination: tour-graph-event
+        tourRelationalEventConsumer-in-0:
+          destination: tour-relational-event
+  kafka:
+    bootstrap-servers: kafka1:9091
   neo4j:
-    uri: bolt://localhost:7687
+    uri: bolt://neo4j:7687
     authentication:
       username: neo4j
       password: password
@@ -22,12 +24,8 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server:8761/eureka/
       healthcheck:
         enabled: true
   instance:
     prefer-ip-address: true
-
-
-
-
