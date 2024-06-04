@@ -1,48 +1,40 @@
 package rs.ac.uns.acs.nais.GraphDatabaseService.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.RelationshipId;
 import org.springframework.data.neo4j.core.schema.RelationshipProperties;
 import org.springframework.data.neo4j.core.schema.TargetNode;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @RelationshipProperties
+@Getter
+@Setter
 public class Purchase {
 
     @RelationshipId
-    private  Long id;
+    private Long id;
+
     @TargetNode
-    private  Product product;
-    private int numberOfPurchasedItems;
+    private Tour tour;
+
+    private String adultTicketNumber;
+
+    private String minorTicketNumber;
+
+    private String totalPrice;
 
     public Purchase() {
     }
 
-    public Purchase(Long id, Product product, int numberOfPurchasedItems) {
+    public Purchase(Long id, Tour tour, String adultTicketNumber, String minorTicketNumber, String totalPrice) {
         this.id = id;
-        this.product = product;
-        this.numberOfPurchasedItems = numberOfPurchasedItems;
+        this.tour = tour;
+        this.adultTicketNumber = adultTicketNumber;
+        this.minorTicketNumber = minorTicketNumber;
+        this.totalPrice = totalPrice;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getNumberOfPurchasedItems() {
-        return numberOfPurchasedItems;
-    }
-
-    public void setNumberOfPurchasedItems(int numberOfPurchasedItems) {
-        this.numberOfPurchasedItems = numberOfPurchasedItems;
-    }
 }

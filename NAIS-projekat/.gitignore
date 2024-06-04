@@ -4,3 +4,10 @@
 
 .idea/*
 /.idea/
+
+./data/
+./data*
+
+.db
+.id
+.0
