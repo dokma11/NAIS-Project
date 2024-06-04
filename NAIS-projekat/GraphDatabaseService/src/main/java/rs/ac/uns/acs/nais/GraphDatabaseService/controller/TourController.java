@@ -34,6 +34,12 @@ public class TourController {
         return new ResponseEntity<>(createdTour, HttpStatus.CREATED);
     }
 
+    @PostMapping("/transactional")
+    public ResponseEntity<?> createTransactional(@RequestBody Tour tour){
+        Tour createdTour = tourService.createTransactional(tour);
+        return new ResponseEntity<>(createdTour, HttpStatus.CREATED);
+    }
+
     @DeleteMapping
     public ResponseEntity<?> delete(@RequestParam("id") String id){
         if(tourService.delete(id)){
@@ -50,14 +56,12 @@ public class TourController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Uraditi sa id 7
     @GetMapping("/findOtherUsersBought")
     public ResponseEntity<?> findOtherUsersBought(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findOtherUsersBought(id);
         return new ResponseEntity<>(tours, HttpStatus.OK);
     }
 
-    // Uraditi sa id 7
     @GetMapping("/findSimilarToursViaPurchaseHistory")
     public ResponseEntity<?> findSimilarToursViaPurchaseHistory(@RequestParam("id") Long id) {
         List<Tour> tours = tourService.findSimilarToursViaPurchaseHistory(id);

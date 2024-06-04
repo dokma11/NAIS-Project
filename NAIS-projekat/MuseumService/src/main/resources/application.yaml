@@ -1,0 +1,8 @@
+spring.cloud.stream:
+  function:
+    definition: tourRelationalProcessor
+  bindings:
+    tourRelationalProcessor-in-0:
+      destination: tour-graph-event
+    tourRelationalProcessor-out-0:
+      destination: tour-relational-event

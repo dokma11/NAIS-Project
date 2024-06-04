@@ -40,6 +40,6 @@ public class OrganizerService extends CRUDService<Organizer, Integer> implements
 
     @Override
     public Organizer findByUsername(String username) {
-        return organizerRepository.findByUsername(username).orElseThrow();
+        return organizerRepository.findByUsername(username).orElseThrow(null);
     }
 }

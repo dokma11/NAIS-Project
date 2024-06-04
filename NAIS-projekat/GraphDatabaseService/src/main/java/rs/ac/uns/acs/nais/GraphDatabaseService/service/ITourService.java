@@ -8,6 +8,7 @@ import rs.ac.uns.acs.nais.GraphDatabaseService.model.Tour;
 public interface ITourService {
     List<Tour> findAll();
     Tour create(Tour tour);
+    Tour createTransactional(Tour tour);
     boolean delete(String id);
     boolean update(Tour tour);
     List<Tour> findByPriceRange(Integer minPrice, Integer maxPrice);
