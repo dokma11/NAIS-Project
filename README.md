@@ -16,7 +16,7 @@ Frontend project can be found [here](https://github.com/dokma11/Museum-Informati
 
 Backend project can be found [here](https://github.com/dokma11/Museum-Information-System-Backend).
 
-# Content
+# Content:
 - <b>Eureka service:</b> A service registry for service discovery, enabling different microservices to locate and communicate with each other dynamically within a distributed system. 
 - <b>Gateway service:</b> Serves as an entry point for clients, routing and managing requests to various backend services.
 - <b>Graph Database service:</b> A service used as a recommendation system for tours. Tours are recommended usually
@@ -36,12 +36,12 @@ Users purchase history is being tracked, so that the recommendation system can b
 
 # Getting started:
 
-<h3>Prerequisites</h3>
+<h3>Prerequisites:</h3>
 
 - <b>Git:</b> Ensure you have Git installed. You can download it from [here](https://git-scm.com/downloads).
 - <b>Docker:</b> Ensure you have Docker installed. You can download it from [here](https://docs.docker.com/desktop/install/windows-install/).
 
-<h3>Steps</h3>
+<h3>Steps:</h3>
 
 1. <b>Clone the repository:</b> <br>
 git clone https://github.com/dokma11/NAIS-Project.git
